@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'phonenumber_field',
     'hivs_users',
+    'hivs_clients'
 ]
 
 MIDDLEWARE = [
@@ -83,7 +86,7 @@ WSGI_APPLICATION = 'hivs.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.postgresql'),
+        'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.contrib.gis.db.backends.postgis'),
         'NAME': os.environ.get('DATABASE_NAME', 'hivs'),
         'USER': os.environ.get('DATABASE_USER', 'hivs'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'hivs'),
