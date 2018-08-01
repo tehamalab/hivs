@@ -1,0 +1,5 @@
+django>=2.0
+argon2-cffi
+psycopg2 --no-binary psycopg2
+
+python-dotenv
