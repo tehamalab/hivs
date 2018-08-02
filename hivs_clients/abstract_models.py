@@ -5,7 +5,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class AbstractProfile(models.Model):
-    number = models.CharField(_('number'), max_length=255, blank=True)
+    registration_id = models.CharField(
+        _('registration number'),
+        max_length=255,
+        blank=True
+    )
     first_name = models.CharField(_('first name'), max_length=255)
     last_name = models.CharField(_('last name'), max_length=255)
     middle_name = models.CharField(_('middle name'), max_length=255, blank=True)
