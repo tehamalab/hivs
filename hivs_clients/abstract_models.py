@@ -22,10 +22,28 @@ class AbstractProfile(models.Model):
     email = models.EmailField(_('email'), blank=True)
     education_level = models.CharField(_('education level'), max_length=255, blank=True)
     occupation = models.CharField(_('occupation'), max_length=255, blank=True)
-    # area/ward
-    # street
-    geolocation = models.PointField(_('geolocation'), blank=True, null=True,
-                                    geography=True)
+    area = models.ForeignKey(
+        'hivs_administrative.Area',
+        related_name='clients_profiles',
+        verbose_name='administrative area',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+    street = models.ForeignKey(
+        'hivs_administrative.Street',
+        related_name='clients_profiles',
+        verbose_name='street',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+    geolocation = models.PointField(
+        _('geolocation'),
+        blank=True,
+        null=True,
+        geography=True
+    )
     extras = JSONField(_('extras'), blank=True, default={})
 
     class Meta:
