@@ -50,6 +50,11 @@ class AbstractArea(MPTTModel, models.Model):
         blank=True,
         null=True
     )
+    population_source = models.CharField(
+        _('population source'),
+        max_length=255,
+        blank=True
+    )
     geometry = models.MultiPolygonField(
         _('Geometry'),
         geography=True,
@@ -144,6 +149,11 @@ class AbstractStreet(models.Model):
         _('population year'),
         blank=True,
         null=True
+    )
+    population_source = models.CharField(
+        _('population source'),
+        max_length=255,
+        blank=True
     )
     geometry = models.MultiLineStringField(
         _('geometry'),
