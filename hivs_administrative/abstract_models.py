@@ -110,7 +110,7 @@ class AbstractStreet(models.Model):
         related_name='streets',
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.SET_NULL
     )
     description = models.TextField(_('description'), blank=True)
     code = models.CharField(_('code'), max_length=50, blank=True)
