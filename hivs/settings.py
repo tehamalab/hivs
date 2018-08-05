@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'hivs_users',
     'hivs_administrative',
-    'hivs_clients'
+    'hivs_clients',
+    'hivs_pp'
 ]
 
 MIDDLEWARE = [
