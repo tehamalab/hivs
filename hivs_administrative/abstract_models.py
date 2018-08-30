@@ -25,8 +25,8 @@ class AbstractArea(MPTTModel, models.Model):
         max_length=255,
         blank=True
     )
-    population = models.PositiveIntegerField(_
-        ('population'),
+    population = models.PositiveIntegerField(
+        _('population'),
         blank=True,
         null=True
     )
@@ -125,8 +125,8 @@ class AbstractStreet(models.Model):
         max_length=255,
         blank=True
     )
-    population = models.PositiveIntegerField(_
-        ('population'),
+    population = models.PositiveIntegerField(
+        _('population'),
         blank=True,
         null=True
     )

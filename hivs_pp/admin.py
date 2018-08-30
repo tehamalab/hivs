@@ -30,7 +30,7 @@ class DeliveryAdmin(PPAdmin):
     raw_id_fields = ['client', 'provider', 'reviewer']
     search_fields = ['id', 'provider__username', 'services__name']
 
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Service, ServiceAdmin)
 admin.site.register(Delivery, DeliveryAdmin)
-

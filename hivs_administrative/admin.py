@@ -7,7 +7,7 @@ Area = apps.get_registered_model('hivs_administrative', 'Area')
 Street = apps.get_registered_model('hivs_administrative', 'Street')
 
 
-class AdministrativeAdmin(admin.OSMGeoAdmin):
+class AdministrativeAdmin(admin.OSMGeoAdmin, DjangoMpttAdmin):
     ordering = ['name']
     readonly_fields = ['id', 'timestamp', 'last_modified']
     list_display = ['id', 'code', 'name', 'location_description_auto']
