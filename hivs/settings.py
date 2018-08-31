@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'import_export',
     'mptt',
     'django_mptt_admin',
     'phonenumber_field',

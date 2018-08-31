@@ -3,6 +3,8 @@ argon2-cffi
 psycopg2 --no-binary psycopg2
 python-dotenv
 
+django-import-export
+
 # hivs administrative
 django-mptt
 django-mptt-admin
