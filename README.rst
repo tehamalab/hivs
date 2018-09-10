@@ -124,8 +124,8 @@ For example change your database setting to reflet your existing setup and enabl
 
 Local project setting which are not supposed to be tracked by git settings modified by
 
- - using system environment variables
- - using environment variables written in ``.env`` file at the project root
+- using system environment variables
+- using environment variables written in ``.env`` file at the project root
 
 
 Otherwise you can edit the ``hivs/settings.py`` file directly.
