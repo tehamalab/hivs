@@ -48,7 +48,7 @@ class AbstractProfile(models.Model):
         null=True,
         geography=True
     )
-    extras = JSONField(_('extras'), blank=True, default={})
+    extras = JSONField(_('extras'), blank=True, default=dict)
 
     class Meta:
         verbose_name = _('Profile')

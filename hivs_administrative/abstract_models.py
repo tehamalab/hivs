@@ -75,7 +75,7 @@ class AbstractArea(MPTTModel, models.Model):
         null=True,
         blank=True
     )
-    extras = JSONField(_('Extras'), blank=True, default={})
+    extras = JSONField(_('Extras'), blank=True, default=dict)
 
     class Meta:
         abstract = True
@@ -168,7 +168,7 @@ class AbstractStreet(models.Model):
         null=True,
         blank=True
     )
-    extras = JSONField(_('extras'), blank=True, default={})
+    extras = JSONField(_('extras'), blank=True, default=dict)
 
     class Meta:
         abstract = True

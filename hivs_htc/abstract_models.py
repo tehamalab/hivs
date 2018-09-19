@@ -56,7 +56,7 @@ class AbstractRegister(models.Model):
         null=True,
         blank=True
     )
-    extras = JSONField(_('extras'), blank=True, default={})
+    extras = JSONField(_('extras'), blank=True, default=dict)
 
     class Meta:
         abstract = True
@@ -95,7 +95,7 @@ class AbstractReferralCenter(models.Model):
         null=True,
         geography=True
     )
-    extras = JSONField(_('extras'), blank=True, default={})
+    extras = JSONField(_('extras'), blank=True, default=dict)
     timestamp = models.DateTimeField('created', auto_now_add=True)
     last_modified = models.DateTimeField(
         _('last modified'),

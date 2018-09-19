@@ -86,7 +86,7 @@ class AbstractDelivery(models.Model):
     review_remarks = models.TextField(_('review remarks'), blank=True)
     review_date = models.DateField(_('review date'), blank=True, null=True)
     review_time = models.TimeField(_('review time'), blank=True, null=True)
-    extras = JSONField(_('extras'), blank=True, default={})
+    extras = JSONField(_('extras'), blank=True, default=dict)
     timestamp = models.DateTimeField('timestamp', auto_now_add=True)
     last_modified = models.DateTimeField(
         _('last modified'),
