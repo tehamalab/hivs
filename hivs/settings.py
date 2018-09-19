@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'hivs_administrative',
     'hivs_clients',
     'hivs_pp',
-    'hivs_htc'
+    'hivs_htc',
+    'hivs_cd'
 ]
 
 MIDDLEWARE = [
