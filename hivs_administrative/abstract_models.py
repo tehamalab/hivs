@@ -6,6 +6,24 @@ from django.contrib.gis import geos
 from mptt.models import MPTTModel, TreeForeignKey
 
 
+class AbstractAreaType(models.Model):
+    name = models.CharField(_('name'), max_length=255, unique=True)
+    timestamp = models.DateTimeField('created', auto_now_add=True)
+    last_modified = models.DateTimeField(
+        _('last modified'),
+        auto_now=True,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = 'Area type'
+        verbose_name_plural = 'Area types'
+
+    def __str__(self):
+        return self.name
+
+
 class AbstractArea(MPTTModel, models.Model):
     parent = TreeForeignKey(
         'self',
@@ -19,6 +37,13 @@ class AbstractArea(MPTTModel, models.Model):
     name = models.CharField(_('name'), max_length=255)
     description = models.TextField(_('description'), blank=True)
     code = models.CharField(_('code'), max_length=50, blank=True)
+    area_type = models.ForeignKey(
+        'hivs_administrative.AreaType',
+        verbose_name=_('area type'),
+        related_name='areas',
+        null=True,
+        on_delete=models.SET_NULL
+    )
     location_description_auto = models.CharField(
         _('location description'),
         help_text=_('can be generated automatically'),

@@ -1,4 +1,8 @@
-from .abstract_models import AbstractArea, AbstractStreet
+from .abstract_models import AbstractAreaType, AbstractArea, AbstractStreet
+
+
+class AreaType(AbstractAreaType):
+    pass
 
 
 class Area(AbstractArea):
