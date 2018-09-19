@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
+from hivs_utils.admin import BaseAdmin
 from .import_export import CategoryResource, ServiceResource, DeliveryResource
 
 
@@ -9,7 +10,7 @@ Service = apps.get_registered_model('hivs_pp', 'Service')
 Delivery = apps.get_registered_model('hivs_pp', 'Delivery')
 
 
-class PPAdmin(ImportExportModelAdmin):
+class PPAdmin(BaseAdmin, ImportExportModelAdmin):
     readonly_fields = ['id', 'timestamp', 'last_modified']
 
 

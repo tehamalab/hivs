@@ -4,10 +4,7 @@ psycopg2 --no-binary psycopg2
 python-dotenv
 
 django-import-export
-
-# hivs administrative
 django-mptt
 django-mptt-admin
-
-# hivs_clients
 django-phonenumber-field
+django-postgres-utils

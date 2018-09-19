@@ -2,6 +2,7 @@ from django.contrib.gis import admin
 from django.apps import apps
 from django_mptt_admin.admin import DjangoMpttAdmin
 from import_export.admin import ImportExportModelAdmin
+from hivs_utils.admin import BaseAdmin
 from .import_export import AreaResource, StreetResource
 
 
@@ -9,7 +10,7 @@ Area = apps.get_registered_model('hivs_administrative', 'Area')
 Street = apps.get_registered_model('hivs_administrative', 'Street')
 
 
-class AdministrativeAdmin(admin.OSMGeoAdmin, ImportExportModelAdmin):
+class AdministrativeAdmin(BaseAdmin, admin.OSMGeoAdmin, ImportExportModelAdmin):
     ordering = ['name']
     readonly_fields = ['id', 'timestamp', 'last_modified']
     list_display = ['id', 'code', 'name', 'location_description_auto']
