@@ -25,6 +25,7 @@ class AbstractRegister(models.Model):
         null=True
     )
     martial_status = models.CharField(_('martial status'), max_length=25)
+    occupation = models.CharField(_('occupation'), max_length=255, blank=True)
     pregnancy_status = models.CharField(_('pregnancy status'), max_length=25)
     referrer = models.CharField(_('referrer'), max_length=255, blank=True)
     councelling_type = models.CharField(_('councelling type'), max_length=255)
@@ -44,11 +45,6 @@ class AbstractRegister(models.Model):
     tb_test_result = models.CharField(
         _('result for TB test'),
         max_length=25,
-        blank=True
-    )
-    referred_to = models.CharField(
-        _('referred to'),
-        max_length=255,
         blank=True
     )
     received_condoms = models.BooleanField(_('received condom(s)'), default=False)
@@ -118,6 +114,13 @@ class AbstractReferralCenter(models.Model):
 
 
 class AbstractReferral(models.Model):
+    register = models.ForeignKey(
+        'hivs_htc.Register',
+        related_name='referrals',
+        verbose_name='referral center',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     date = models.DateField(_('date'))
     referral_center = models.ForeignKey(
         'hivs_htc.ReferralCenter',
@@ -126,15 +129,10 @@ class AbstractReferral(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    client_no = models.CharField(_('client number'), max_length=255)
-    gender = models.CharField(_('gender'), max_length=25)
-    age = models.IntegerField(_('age'), validators=[MinValueValidator(0)])
-    martial_status = models.CharField(_('martial status'), max_length=25)
-    occupation = models.CharField(_('occupation'), max_length=255)
     reason = models.CharField(_('reason'), max_length=255)
     services_given = models.TextField(_('services given'))
     unique_info = models.TextField(
-        _('services given'),
+        _('unique information'),
         help_text=_('Example; allergy'),
         blank=True
     )
@@ -142,6 +140,7 @@ class AbstractReferral(models.Model):
         'hivs_htc.ReferralCenter',
         related_name='htc_referrers',
         verbose_name='referrer center',
+        help_text=_('center that issues the referral'),
         on_delete=models.SET_NULL,
         null=True,
         blank=True
