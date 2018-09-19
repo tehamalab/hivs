@@ -13,8 +13,20 @@ class AbstractProfile(models.Model):
     first_name = models.CharField(_('first name'), max_length=255)
     last_name = models.CharField(_('last name'), max_length=255)
     middle_name = models.CharField(_('middle name'), max_length=255, blank=True)
-    gender = models.CharField(_('gender'), max_length=25)
-    martial_status = models.CharField(_('martial status'), max_length=25)
+    gender = models.ForeignKey(
+        'hivs_utils.Gender',
+        related_name='clients_profiles',
+        verbose_name='gender',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    martial_status = models.ForeignKey(
+        'hivs_utils.MartialStatus',
+        related_name='clients_profiles',
+        verbose_name='martial status',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     birthdate = models.DateField(_('birthdate'), blank=True, null=True)
     phone = PhoneNumberField(_('phone number'), blank=True)
     other_phones = ArrayField(
@@ -48,6 +60,13 @@ class AbstractProfile(models.Model):
         null=True,
         geography=True
     )
+    timestamp = models.DateTimeField('Created at', auto_now_add=True)
+    last_modified = models.DateTimeField(
+        _('Last modified'),
+        auto_now=True,
+        null=True,
+        blank=True
+    )
     extras = JSONField(_('extras'), blank=True, default=dict)
 
     class Meta:
@@ -56,4 +75,4 @@ class AbstractProfile(models.Model):
         abstract = True
 
     def __str__(self):
-        return ' '.join(filter(None, [self.number, self.first_name, self.last_name]))
+        return ' '.join(filter(None, [registration_id, self.first_name, self.last_name]))
