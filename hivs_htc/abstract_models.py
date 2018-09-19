@@ -13,8 +13,20 @@ class AbstractRegister(models.Model):
         _('client spouce number'),
         max_length=255
     )
-    attendance_type = models.CharField(_('attendance type'), max_length=255)
-    gender = models.CharField(_('gender'), max_length=25)
+    attendance_type = models.ForeignKey(
+        'hivs_utils.AttendanceType',
+        related_name='htc_registers',
+        verbose_name='attendance type',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    gender = models.ForeignKey(
+        'hivs_utils.Gender',
+        related_name='htc_registers',
+        verbose_name='gender',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     age = models.IntegerField(_('age'), validators=[MinValueValidator(0)])
     area = models.ForeignKey(
         'hivs_administrative.Area',
@@ -24,28 +36,55 @@ class AbstractRegister(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    martial_status = models.CharField(_('martial status'), max_length=25)
+    martial_status = models.ForeignKey(
+        'hivs_utils.MartialStatus',
+        related_name='htc_registers',
+        verbose_name='martial status',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     occupation = models.CharField(_('occupation'), max_length=255, blank=True)
-    pregnancy_status = models.CharField(_('pregnancy status'), max_length=25)
-    referrer = models.CharField(_('referrer'), max_length=255, blank=True)
+    pregnancy_status = models.ForeignKey(
+        'hivs_utils.PregnancyStatus',
+        related_name='htc_registers',
+        verbose_name='pregnancy status',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    referrer_type = models.ForeignKey(
+        'hivs_htc.ReferralCenterType',
+        related_name='htc_referrer_registers',
+        verbose_name='referrer',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     councelling_type = models.CharField(_('councelling type'), max_length=255)
     agreed_to_test = models.BooleanField(_('agreed to test'), default=False)
     councelled_after_test = models.BooleanField(
         _('councelled after test'),
         default=False
     )
-    test_result = models.CharField(_('test result'), max_length=25, blank=True)
-    test_result_share = models.CharField(
-        _('result sharing'),
-        help_text=_('people who test results should be shared with'),
-        max_length=25,
-        blank=True
+    hiv_test_result = models.ForeignKey(
+        'hivs_utils.HIVStatus',
+        related_name='htc_register_results',
+        verbose_name='HIV test result',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    test_result_share = models.ForeignKey(
+        'hivs_utils.ResultSharingChoice',
+        related_name='htc_register_results',
+        verbose_name='result sharing',
+        on_delete=models.SET_NULL,
+        null=True
     )
     tb_tested = models.BooleanField(_('tested for TB'), default=False)
-    tb_test_result = models.CharField(
-        _('result for TB test'),
-        max_length=25,
-        blank=True
+    tb_test_result = models.ForeignKey(
+        'hivs_utils.TBStatus',
+        related_name='htc_register_results',
+        verbose_name='TB test result',
+        on_delete=models.SET_NULL,
+        null=True
     )
     received_condoms = models.BooleanField(_('received condom(s)'), default=False)
     remarks = models.TextField(_('remarks'), blank=True)
@@ -67,8 +106,35 @@ class AbstractRegister(models.Model):
         return self.client_no
 
 
+class AbstractReferralCenterType(models.Model):
+    name = models.CharField(_('center type'), max_length=255, unique=True)
+    code = models.CharField(_('code'), max_length=25, blank=True)
+    description = models.TextField(_('description'), blank=True)
+    timestamp = models.DateTimeField('created', auto_now_add=True)
+    last_modified = models.DateTimeField(
+        _('last modified'),
+        auto_now=True,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        abstract = True
+        verbose_name = 'Referral Center Type'
+        verbose_name_plural = 'Referral Center Types'
+
+    def __str__(self):
+        return self.name
+
+
 class AbstractReferralCenter(models.Model):
-    center_type = models.CharField(_('center type'), max_length=255)
+    center_type = models.ForeignKey(
+        'hivs_htc.ReferralCenterType',
+        related_name='htc_referral_centers',
+        verbose_name='center type',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     name = models.CharField(_('name'), max_length=255)
     phone = PhoneNumberField(_('phone number'), blank=True)
     email = models.EmailField(_('email'), blank=True)

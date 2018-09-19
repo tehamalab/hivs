@@ -1,8 +1,12 @@
-from .abstract_models import (AbstractRegister, AbstractReferralCenter,
-                              AbstractReferral)
+from .abstract_models import (AbstractRegister, AbstractReferralCenterType,
+                              AbstractReferralCenter, AbstractReferral)
 
 
 class Register(AbstractRegister):
+    pass
+
+
+class ReferralCenterType(AbstractReferralCenterType):
     pass
 
 

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_mptt_admin',
     'phonenumber_field',
     'django_postgres_utils',
+    'hivs_utils',
     'hivs_users',
     'hivs_administrative',
     'hivs_clients',
