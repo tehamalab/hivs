@@ -75,4 +75,4 @@ class AbstractProfile(models.Model):
         abstract = True
 
     def __str__(self):
-        return ' '.join(filter(None, [registration_id, self.first_name, self.last_name]))
+        return ' '.join(filter(None, [self.registration_id, self.first_name, self.last_name]))
