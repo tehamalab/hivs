@@ -17,6 +17,7 @@ class AbstractAreaType(models.Model):
     )
 
     class Meta:
+        abstract = True
         verbose_name = 'Area type'
         verbose_name_plural = 'Area types'
 
