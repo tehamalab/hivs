@@ -14,11 +14,13 @@ class PPAdmin(BaseAdmin, ImportExportModelAdmin):
     readonly_fields = ['id', 'timestamp', 'last_modified']
 
 
+@admin.register(Category)
 class CategoryAdmin(PPAdmin):
     resource_class = CategoryResource
     search_fields = ['id', 'name']
 
 
+@admin.register(Service)
 class ServiceAdmin(PPAdmin):
     resource_class = ServiceResource
     list_display = ['id', 'name']
@@ -27,6 +29,7 @@ class ServiceAdmin(PPAdmin):
     search_fields = ['id', 'name']
 
 
+@admin.register(Delivery)
 class DeliveryAdmin(PPAdmin):
     resource_class = DeliveryResource
     list_display = ['id', 'client']
@@ -35,8 +38,3 @@ class DeliveryAdmin(PPAdmin):
     filter_horizontal = ['services']
     raw_id_fields = ['client', 'provider', 'reviewer']
     search_fields = ['id', 'provider__username', 'services__name']
-
-
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Service, ServiceAdmin)
-admin.site.register(Delivery, DeliveryAdmin)
