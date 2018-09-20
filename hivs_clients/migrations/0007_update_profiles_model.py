@@ -8,6 +8,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('hivs_utils', '__first__'),
         ('hivs_clients', '0006_set_extras_default_value_to_callable'),
     ]
 
