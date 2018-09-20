@@ -32,7 +32,7 @@ class AbstractProfile(models.Model):
     other_phones = ArrayField(
         PhoneNumberField(),
         blank=True,
-        default=[],
+        default=list,
         verbose_name=_('other phones')
     )
     email = models.EmailField(_('email'), blank=True)
