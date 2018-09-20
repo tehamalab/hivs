@@ -172,7 +172,7 @@ ADMIN_SITE_NAME = os.environ.get('ADMIN_SITE_HEADER', SITE_NAME)
 
 ADMIN_SITE_HEADER = os.environ.get('ADMIN_SITE_HEADER', SITE_NAME)
 
-ADMIN_INDEX_TITLE = os.environ.get('ADMIN_INDEX_TITLE', 'Administration')
+ADMIN_INDEX_TITLE = os.environ.get('ADMIN_INDEX_TITLE', 'Administration and Data management')
 
 
 # SSL
