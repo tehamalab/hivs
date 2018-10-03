@@ -21,6 +21,7 @@ class AreaResource(resources.ModelResource):
 
     class Meta:
         model = Area
+        exclude = ['lft', 'rght', 'tree_id', 'level']
 
 
 class StreetResource(resources.ModelResource):
