@@ -101,4 +101,4 @@ class AbstractDelivery(models.Model):
         verbose_name_plural = _('Services Deliveries')
 
     def __str__(self):
-        return self.date
+        return str(self.date)
