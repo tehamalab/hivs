@@ -183,7 +183,7 @@ class AbstractReferral(models.Model):
     register = models.ForeignKey(
         'hivs_htc.Register',
         related_name='referrals',
-        verbose_name='referral center',
+        verbose_name='register',
         on_delete=models.SET_NULL,
         null=True
     )
