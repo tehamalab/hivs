@@ -63,10 +63,12 @@ INSTALLED_APPS = [
     'hivs_clients',
     'hivs_pp',
     'hivs_htc',
-    'hivs_cd'
+    'hivs_cd',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -25,6 +25,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+
+    ] + urlpatterns
+
+
 admin.site.site_header = getattr(settings, 'ADMIN_SITE_HEADER', '')
 admin.site.index_title = getattr(settings, 'ADMIN_INDEX_TITLE', '')
 admin.site.site_title = getattr(settings, 'ADMIN_SITE_NAME', '')

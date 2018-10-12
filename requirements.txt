@@ -11,3 +11,4 @@ django-allauth
 django-phonenumber-field
 django-postgres-utils
 django-crispy-forms
+django-debug-toolbar
