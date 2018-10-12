@@ -1,0 +1,21 @@
+{% extends 'dash/base.html' %}
+
+{% block content %}
+    {% verbatim %}
+        <div id="app">
+            <h1>{{ message }}</h1>
+        </div>
+    {% endverbatim %}
+{% endblock content %}
+
+
+{% block extra_js %}
+<script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+</script>
+{% endblock extra_js %}

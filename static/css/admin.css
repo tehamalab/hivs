@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css?family=Muli");
+body {
+  font-family: "Muli", sans-serif; }
+
+div.breadcrumbs {
+  background: #0078f0; }
+
+#header {
+  background: #3399ff;
+  color: #fff;
+  padding: 1rem 1rem; }
+  #header #user-tools a,
+  #header #user-tools a:hover {
+    color: #fff; }
+
+h2#site-name {
+  color: #fff;
+  display: inline-block;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap; }
+  h2#site-name a.navbar-brand a:visited, h2#site-name a.navbar-brand:link {
+    color: #fff; }
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+  background: #3399ff; }
+
+.module h2,
+.module caption,
+.inline-group h2 {
+  background: #0080ff; }
+
+/*# sourceMappingURL=admin.css.map */

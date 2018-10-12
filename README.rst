@@ -171,6 +171,20 @@ To start the development server go to your project root directory run
 Now you will be able to access a site locally via http://127.0.0.1:8000
 
 
+Customizing CSS
+---------------
+
+The project is using Sass for pre-processing CSS.
+To customize projects stylesheet don't edit CSS directly but edit the Sass files are located in scss directory
+the compile the your chnges to CSS using your favourite Sass compiler.
+
+Example;
+
+.. code:: bash
+
+    sass --watch scss/main.scss:static/css/main.css
+
+
 Deployment
 ==========
 

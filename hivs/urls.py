@@ -16,12 +16,12 @@ Including another URLconf
 
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
-from django.views.generic.base import RedirectView
+from django.urls import path, include
 
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/admin/', permanent=False), name='home'),
+    path('', include('hivs_dash.urls')),
+    path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
 ]
 

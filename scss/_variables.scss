@@ -1,0 +1,94 @@
+// colors
+
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$blue: #007bff !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #e83e8c !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #28a745 !default;
+$teal: #20c997 !default;
+$cyan: #17a2b8 !default;
+
+$primary:       #3399ff;
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+$theme-colors: (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+);
+
+$brand-colors: (
+    "facebook":    #3b5998,
+    "google":      #ea4335,
+    "instagram":   #c13584,
+    "twitter":     #1da1f2,
+    "google-plus": #dd4b39,
+    "whatsapp":    #25d366
+);
+
+
+// Body
+
+$body-bg:    $white;
+
+// Fonts
+
+@import url('https://fonts.googleapis.com/css?family=Muli');
+
+$font-family-sans-serif:      'Muli', sans-serif;
+$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-base:            $font-family-sans-serif;
+
+$font-size-base:              1rem !default;
+$font-size-lg:                ($font-size-base * 1.25);
+$font-size-sm:                ($font-size-base * .875);
+
+$line-height-base:            1.5;
+
+$headings-font-weight:      700;
+
+
+// Components
+
+$transition-collapse:         height .25s ease;
+
+// Navbar
+
+$spacer: 1rem !default;
+
+$nav-link-padding-y:                .5rem;
+
+$navbar-padding-y:                  $spacer;
+$navbar-padding-x:                  $spacer;
+$navbar-dark-color:                 rgba($white, .7);
+
+$navbar-brand-font-size:            $font-size-lg;
+$nav-link-height:                   ($font-size-base * $line-height-base + $nav-link-padding-y * 2);
+$navbar-brand-height:               $navbar-brand-font-size * $line-height-base;
+$navbar-brand-padding-y:            ($nav-link-height - $navbar-brand-height);

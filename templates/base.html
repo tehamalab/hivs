@@ -1,0 +1,35 @@
+{% load static %}
+{% load compress %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{{ SITE_NAME }} &middot; {% block head_title %}{{ SITE_TAGLINE }}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="{% static 'favicon.ico' %}" rel="icon" type="image/x-icon" />
+
+        {% compress css %}
+            <link href="{% static 'css/fontawesome.all.css' %}" rel="stylesheet">
+            <link href="{% static 'css/main.css' %}" rel="stylesheet">
+        {% endcompress %}
+
+        {% block extra_head %}{% endblock %}
+    </head>
+
+    <body id="page-top" class="{% block body_class %}{% endblock %}">
+        {% block body %}{% endblock %}
+
+        {% block js %}
+            {% compress js %}
+                <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+                <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+                <script src="{% static 'js/sb-admin.js' %}"></script>
+                <script src="{% static 'js/vue.js' %}"></script>
+            {% endcompress %}
+        {% endblock %}
+        {% block extra_js %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,53 @@
+body {
+    font-family: "Muli", sans-serif;
+}
+
+div.breadcrumbs {
+    background: darken($primary, 13%);
+}
+
+#header {
+    background: $primary;
+    color: $white;
+    padding: 1rem 1rem;
+
+    #user-tools {
+        a,
+        a:hover {
+            color: $white;
+        }
+    }
+}
+
+h2#site-name {
+    color: $white;
+    display: inline-block;
+    padding-top: $navbar-brand-padding-y;
+    padding-bottom: $navbar-brand-padding-y;
+    margin-right: $navbar-padding-x;
+    font-size: $navbar-brand-font-size;
+    line-height: inherit;
+    white-space: nowrap;
+
+    a.navbar-brand {
+        a:visited,
+        &:link {
+            color: $white;
+        }
+    }
+}
+
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+    background: $primary;
+}
+
+
+.module h2,
+.module caption,
+.inline-group h2 {
+    background: darken($primary, 10%);
+}

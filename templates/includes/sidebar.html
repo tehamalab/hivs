@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<ul class="sidebar navbar-nav toggled">
+    <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>{% trans 'Dashboard' %}</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="">
+            <i class="fas fa-fw fa-table"></i>
+            <span>{% trans 'Reports' %}</span>
+        </a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link" href="{% url 'admin:index' %}">
+            <i class="fas fa-fw fa-th-list"></i>
+            <span>{% trans 'Data' %}</span>
+        </a>
+    </li>
+</ul>

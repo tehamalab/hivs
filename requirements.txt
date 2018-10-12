@@ -2,9 +2,12 @@ django>=2.0,<2.1
 argon2-cffi
 psycopg2 --no-binary psycopg2
 python-dotenv
-
+django_compressor
+lxml
 django-import-export
 django-mptt
 django-mptt-admin
+django-allauth
 django-phonenumber-field
 django-postgres-utils
+django-crispy-forms
