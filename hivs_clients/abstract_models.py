@@ -38,8 +38,20 @@ class AbstractProfile(models.Model):
         verbose_name=_('other phones')
     )
     email = models.EmailField(_('email'), blank=True)
-    education_level = models.CharField(_('education level'), max_length=255, blank=True)
-    occupation = models.CharField(_('occupation'), max_length=255, blank=True)
+    education_level = models.ForeignKey(
+        'hivs_utils.EducationLevel',
+        related_name='clients_profiles',
+        verbose_name='education level',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    occupation = models.ForeignKey(
+        'hivs_utils.Occupation',
+        related_name='clients_profiles',
+        verbose_name='occupation',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     area = models.ForeignKey(
         'hivs_administrative.Area',
         related_name='clients_profiles',
