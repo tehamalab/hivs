@@ -16,6 +16,13 @@ class MartialStatus(AbstractChoice):
         verbose_name_plural = _('Martial status')
 
 
+class EducationLevel(AbstractChoice):
+
+    class Meta:
+        verbose_name = _('Education level')
+        verbose_name_plural = _('Education levels')
+
+
 class PregnancyStatus(AbstractChoice):
 
     class Meta:
