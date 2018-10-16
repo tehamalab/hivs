@@ -5,6 +5,7 @@ from import_export import resources
 Gender = apps.get_model('hivs_utils', 'Gender')
 MartialStatus = apps.get_model('hivs_utils', 'MartialStatus')
 EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
+Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
 AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
@@ -28,6 +29,12 @@ class EducationLevelResource(resources.ModelResource):
 
     class Meta:
         model = EducationLevel
+
+
+class OccupationResource(resources.ModelResource):
+
+    class Meta:
+        model = Occupation
 
 
 class PregnancyStatusResource(resources.ModelResource):

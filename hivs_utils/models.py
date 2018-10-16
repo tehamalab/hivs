@@ -23,6 +23,13 @@ class EducationLevel(AbstractChoice):
         verbose_name_plural = _('Education levels')
 
 
+class Occupation(AbstractChoice):
+
+    class Meta:
+        verbose_name = _('Occupation')
+        verbose_name_plural = _('Occupations')
+
+
 class PregnancyStatus(AbstractChoice):
 
     class Meta:

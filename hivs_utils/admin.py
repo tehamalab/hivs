@@ -3,7 +3,8 @@ from django.contrib import admin
 from django.contrib.postgres.fields import JSONField
 from django_postgres_utils.widgets import AdminHStoreWidget
 from import_export.admin import ImportExportModelAdmin
-from .import_export import (GenderResource, MartialStatusResource, EducationLevelResource,
+from .import_export import (GenderResource, MartialStatusResource,
+                            EducationLevelResource, OccupationResource,
                             PregnancyStatusResource, AttendanceTypeResource,
                             HIVStatusResource, TBStatusResource,
                             ResultSharingChoiceResource)
@@ -12,6 +13,7 @@ from .import_export import (GenderResource, MartialStatusResource, EducationLeve
 Gender = apps.get_model('hivs_utils', 'Gender')
 MartialStatus = apps.get_model('hivs_utils', 'MartialStatus')
 EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
+Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
 AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
@@ -38,6 +40,11 @@ class MartialStatusAdmin(BaseAdmin, ImportExportModelAdmin):
 @admin.register(EducationLevel)
 class EducationLevelAdmin(BaseAdmin, ImportExportModelAdmin):
     resource_class = EducationLevelResource
+
+
+@admin.register(Occupation)
+class OccupationAdmin(BaseAdmin, ImportExportModelAdmin):
+    resource_class = OccupationResource
 
 
 @admin.register(PregnancyStatus)
