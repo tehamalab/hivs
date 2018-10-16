@@ -18,11 +18,14 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
+from . import api_urls
+
 
 urlpatterns = [
     path('', include('hivs_dash.urls')),
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
+    path('api/', include(api_urls)),
 ]
 
 

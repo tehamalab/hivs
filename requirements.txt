@@ -12,3 +12,7 @@ django-phonenumber-field
 django-postgres-utils
 django-crispy-forms
 django-debug-toolbar
+
+djangorestframework
+markdown
+django-filter

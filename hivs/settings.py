@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'django_postgres_utils',
     'crispy_forms',
+    'rest_framework',
+    'django_filters',
     'hivs_utils',
     'hivs_users',
     'hivs_dash',
@@ -212,6 +214,20 @@ ADMIN_SITE_HEADER = os.environ.get('ADMIN_SITE_HEADER', SITE_NAME)
 
 ADMIN_INDEX_TITLE = os.environ.get('ADMIN_INDEX_TITLE', 'Administration and Data management')
 
+# API
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.DjangoModelPermissions',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
+    'DEFAULT_FILTER_BACKENDS': [
+        'rest_framework.filters.OrderingFilter',
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ]
+}
 
 # SSL
 
