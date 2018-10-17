@@ -79,7 +79,5 @@ class ProfileViewSet(viewsets.ModelViewSet):
             return Response({'detail': _('Invalid group.')}, status.HTTP_400_BAD_REQUEST)
 
         queryset = self.filter_queryset(self.get_queryset())
-        data = {
-            queryset.values(*groups).annotate(count=Count('*'))[:1000]
-        }
+        data = queryset.values(*groups).annotate(count=Count('*'))[:100]
         return Response(data)
