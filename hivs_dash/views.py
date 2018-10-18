@@ -7,4 +7,4 @@ from django.views.generic import TemplateView
 
 @method_decorator(login_required, name='dispatch')
 class IndexView(TemplateView):
-    template_name = 'dash/index.html'
+    template_name = 'hivs_dash/index.html'

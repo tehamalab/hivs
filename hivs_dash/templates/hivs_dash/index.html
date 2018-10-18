@@ -1,0 +1,89 @@
+{% extends 'hivs_dash/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block content %}
+    {% verbatim %}
+        <div id="app">
+            <h1 class="h2">Dashboard: <span class="text-muted">Clients</span></h1>
+
+            <chartjs-line
+                :bind="true"
+                :height="300"
+                :datalabel="'Daily new clients'"
+                :labels="dailyAquisition.date"
+                :data="dailyAquisition.count"
+                :beginzero="true"
+                :option="dailyAquisition.options">
+            </chartjs-line>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <h5 class="card-title">This month</h5>
+                            <div class="row">
+                                <div class="col-sm-6 text-center">
+                                    <p class="display-1 text-info">{{ thisMonthAquisition.count }}</p>
+                                    <p>Clients</p>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <chartjs-bar
+                                        :bind="true"
+                                        :datalabel="'By gender'"
+                                        :labels="thisMonthAquisition.gender.labels"
+                                        :data="thisMonthAquisition.gender.data"
+                                        :height="250"
+                                        :width:="250"
+                                    >
+                                    </chartjs-bar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            
+                            <h5 class="card-title">Last month</h5>
+                            <div class="row">
+                                <div class="col-sm-6 text-center">
+                                    <p class="display-1 text-info">{{ lastMonthAquisition.count }}</p>
+                                    <p>Clients</p>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <chartjs-bar
+                                        :bind="true"
+                                        :datalabel="'By gender'"
+                                        :labels="lastMonthAquisition.gender.labels"
+                                        :data="lastMonthAquisition.gender.data"
+                                        :height="250"
+                                        :width:="250"
+                                    >
+                                    </chartjs-bar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    {% endverbatim %}
+{% endblock content %}
+
+
+{% block extra_js %}
+{% compress js %}
+    <script src="{% static 'hivs_dash/js/vendor/axios.js' %}"></script>
+    <script src="{% static 'hivs_dash/js/vendor/Chart.bundle.js' %}"></script>
+    <script src="{% static 'hivs_dash/js/vendor/vue-charts.js' %}"></script>
+    <script src="{% static 'hivs_dash/js/base.js' %}"></script>
+    <script src="{% static 'hivs_dash/js/index.js' %}"></script>
+{% endcompress %}
+{% endblock extra_js %}
