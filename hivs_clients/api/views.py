@@ -17,19 +17,23 @@ class ProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    filter_fields = [
-        'acquisition_date',
-        'area',
-        'area__name',
-        'street',
-        'street__name',
-        'education_level',
-        'occupation',
-        'gender',
-        'gender__name',
-        'martial_status',
-        'martial_status__name',
-    ]
+
+    filterset_fields = {
+        'acquisition_date': ['exact', 'lt', 'lte', 'gt', 'gte', 'year',
+                             'month', 'week', 'week_day', 'quarter'],
+        'area': ['exact'],
+        'area__name': ['exact', 'iexact'],
+        'street': ['exact'],
+        'street__name': ['exact', 'iexact'],
+        'education_level': ['exact'],
+        'education_level__name': ['exact', 'iexact'],
+        'occupation': ['exact'],
+        'occupation__name': ['exact', 'iexact'],
+        'gender': ['exact'],
+        'gender__name': ['exact', 'iexact'],
+        'martial_status': ['exact'],
+        'martial_status__name': ['exact', 'iexact'],
+    }
 
     group_by_fields = [
         'acquisition_date',
