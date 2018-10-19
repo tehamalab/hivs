@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django_postgres_utils',
     'crispy_forms',
     'rest_framework',
+    'rest_framework_gis',
     'django_filters',
     'hivs_utils',
     'hivs_users',

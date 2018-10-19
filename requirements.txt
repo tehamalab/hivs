@@ -14,5 +14,6 @@ django-crispy-forms
 django-debug-toolbar
 
 djangorestframework
+djangorestframework-gis
 markdown
 django-filter
