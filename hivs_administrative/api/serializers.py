@@ -1,5 +1,5 @@
 from django.apps import apps
-from rest_framework.serializers import ModelSerializer
+from rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 
@@ -17,6 +17,16 @@ class AreaSerializer(GeoFeatureModelSerializer):
         geo_field = "geometry"
 
 
+class AreaCountSerializer(GeoFeatureModelSerializer):
+    """GeoJSON Area serializer."""
+    count = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Area
+        fields = '__all__'
+        geo_field = "geometry"
+
+
 class StreetSerializer(GeoFeatureModelSerializer):
     """GeoJSON Area serializer."""
 
@@ -26,7 +36,7 @@ class StreetSerializer(GeoFeatureModelSerializer):
         geo_field = "geometry"
 
 
-class AreaTypeSerializer(ModelSerializer):
+class AreaTypeSerializer(serializers.ModelSerializer):
     """Area serializer."""
 
     class Meta:
