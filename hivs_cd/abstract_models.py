@@ -48,8 +48,8 @@ class AbstractCenter(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = 'Distribution Center'
-        verbose_name_plural = 'Distribution Centers'
+        verbose_name = 'Condom Distribution Center'
+        verbose_name_plural = 'Condom Distribution Centers'
 
     def __str__(self):
         return self.name
@@ -67,7 +67,13 @@ class AbstractCondomDistribution(models.Model):
     distributor_name = models.CharField(_('distributor name'), max_length=255)
     gender = models.CharField(_('gender'), max_length=25)
     age = models.IntegerField(_('age'), validators=[MinValueValidator(0)])
-    attendance_type = models.CharField(_('attendance type'), max_length=255)
+    attendance_type = models.ForeignKey(
+        'hivs_utils.AttendanceType',
+        related_name='condom_distributions',
+        verbose_name='attendance type',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     hiv_education_delivered = models.BooleanField(
         _('HIV education was delivered'),
         default=False
@@ -89,7 +95,7 @@ class AbstractCondomDistribution(models.Model):
         validators=[MinValueValidator(0)],
         default=0
     )
-    referral_given = models.BooleanField(_('referred to'), default=False)
+    referral_given = models.BooleanField(_('referral was given'), default=False)
     referral_given_type = models.CharField(
         _('referred to'),
         max_length=255,
