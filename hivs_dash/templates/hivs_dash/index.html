@@ -2,10 +2,16 @@
 {% load static %}
 {% load compress %}
 
+{% block extra_head %}
+    {% compress css %}
+        <link href="{% static 'hivs_dash/vendor/leaflet/leaflet.css' %}" rel="stylesheet">
+    {% endcompress %}
+{% endblock extra_head %}
+
 {% block content %}
     {% verbatim %}
         <div id="app">
-            <h1 class="h2">Dashboard: <span class="text-muted">Clients</span></h1>
+            <h1 class="display-4 border-bottom text-muted"><small>Clients</small></h1>
 
             <chartjs-line
                 :bind="true"
@@ -17,12 +23,12 @@
                 :option="dailyAquisition.options">
             </chartjs-line>
 
-            <div class="row">
+            <div class="row pt-3">
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
                             
-                            <h5 class="card-title">This month</h5>
+                            <h5 class="card-title">New clients this month</h5>
                             <div class="row">
                                 <div class="col-sm-6 text-center">
                                     <p class="display-1 text-info">{{ thisMonthAquisition.count }}</p>
@@ -49,7 +55,7 @@
                     <div class="card">
                         <div class="card-body">
                             
-                            <h5 class="card-title">Last month</h5>
+                            <h5 class="card-title">New clients last month</h5>
                             <div class="row">
                                 <div class="col-sm-6 text-center">
                                     <p class="display-1 text-info">{{ lastMonthAquisition.count }}</p>
@@ -73,6 +79,20 @@
                 </div>
 
             </div>
+
+            <div class="row pt-3">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body px-0">
+                            
+                            <h5 class="card-title px-4">Total recorded clients: {{ clientsTotal.count }}</h5>
+
+                            <div id="clients-map" style="height: 400px"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
         </div>
     {% endverbatim %}
 {% endblock content %}
@@ -80,9 +100,13 @@
 
 {% block extra_js %}
 {% compress js %}
-    <script src="{% static 'hivs_dash/js/vendor/axios.js' %}"></script>
-    <script src="{% static 'hivs_dash/js/vendor/Chart.bundle.js' %}"></script>
-    <script src="{% static 'hivs_dash/js/vendor/vue-charts.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/vue/vue.min.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/axios/axios.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/moment/moment.min.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/vue-charts/vue-charts.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/leaflet/leaflet.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/leaflet-choropleth/choropleth.js' %}"></script>
     <script src="{% static 'hivs_dash/js/base.js' %}"></script>
     <script src="{% static 'hivs_dash/js/index.js' %}"></script>
 {% endcompress %}
