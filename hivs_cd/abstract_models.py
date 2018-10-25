@@ -65,8 +65,8 @@ class AbstractCondomDistribution(models.Model):
         null=True
     )
     distributor_name = models.CharField(_('distributor name'), max_length=255)
-    gender = models.CharField(_('gender'), max_length=25)
-    age = models.IntegerField(_('age'), validators=[MinValueValidator(0)])
+    gender = models.CharField(_('client gender'), max_length=25)
+    age = models.IntegerField(_('client age'), validators=[MinValueValidator(0)])
     attendance_type = models.ForeignKey(
         'hivs_utils.AttendanceType',
         related_name='condom_distributions',
@@ -84,13 +84,13 @@ class AbstractCondomDistribution(models.Model):
         blank=True
     )
     condoms_male_count = models.IntegerField(
-        _('male condoms'),
+        _('No. of male condoms provided'),
         help_text=_('No. of male condoms delivered'),
         validators=[MinValueValidator(0)],
         default=0
     )
     condoms_female_count = models.IntegerField(
-        _('female condoms'),
+        _('No. of female condoms provided'),
         help_text=_('No. of male condoms delivered'),
         validators=[MinValueValidator(0)],
         default=0
