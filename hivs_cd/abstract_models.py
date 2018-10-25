@@ -79,7 +79,7 @@ class AbstractCondomDistribution(models.Model):
     date = models.DateField(_('date'))
     center = models.ForeignKey(
         'hivs_cd.Center',
-        related_name='cd_condom_distributions',
+        related_name='condom_distributions',
         verbose_name='distribution center',
         on_delete=models.SET_NULL,
         null=True
