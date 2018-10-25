@@ -72,7 +72,7 @@ class AbstractDelivery(models.Model):
     services = models.ManyToManyField(
         'hivs_pp.Service',
         related_name='deliveries',
-        verbose_name=_('services delivered')
+        verbose_name=_('services provided')
     )
     remarks = models.TextField(_('remarks'), blank=True)
     reviewer = models.ForeignKey(

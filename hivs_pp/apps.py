@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class HivsPpConfig(AppConfig):
     name = 'hivs_pp'
-    verbose_name = 'prevention program'
+    verbose_name = 'prevention interventions'
