@@ -74,6 +74,8 @@ class AbstractDelivery(models.Model):
         related_name='deliveries',
         verbose_name=_('services provided')
     )
+    referral_made = models.BooleanField(_('referral was issued'), default=False)
+    referral_successful = models.BooleanField(_('referral was succesful'), default=False)
     remarks = models.TextField(_('remarks'), blank=True)
     reviewer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
