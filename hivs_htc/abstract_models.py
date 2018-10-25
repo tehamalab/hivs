@@ -43,7 +43,13 @@ class AbstractRegister(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    occupation = models.CharField(_('occupation'), max_length=255, blank=True)
+    occupation = models.ForeignKey(
+        'hivs_utils.Occupation',
+        related_name='htc_registers',
+        verbose_name='occupation',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     pregnancy_status = models.ForeignKey(
         'hivs_utils.PregnancyStatus',
         related_name='htc_registers',
