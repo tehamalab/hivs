@@ -99,8 +99,8 @@ class AbstractDelivery(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = _('Service Delivery')
-        verbose_name_plural = _('Services Deliveries')
+        verbose_name = _('Service Delived')
+        verbose_name_plural = _('Services Delivered')
 
     def __str__(self):
         return str(self.date)
