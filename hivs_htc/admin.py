@@ -2,11 +2,12 @@ from django.apps import apps
 from django.contrib.gis import admin
 from import_export.admin import ImportExportModelAdmin
 from hivs_utils.admin import BaseAdmin
-from .import_export import (RegisterResource, ReferralCenterResource,
-                            ReferralResource)
+from .import_export import (RegisterResource, ReferralCenterTypeResource,
+                            ReferralCenterResource, ReferralResource)
 
 
 Register = apps.get_model('hivs_htc', 'Register')
+ReferralCenterType = apps.get_model('hivs_htc', 'ReferralCenterType')
 ReferralCenter = apps.get_model('hivs_htc', 'ReferralCenter')
 Referral = apps.get_model('hivs_htc', 'Referral')
 
@@ -19,6 +20,15 @@ class ReferralCenterAdmin(BaseAdmin, admin.OSMGeoAdmin,
     list_display = ['id', 'name']
     list_display_links = ['id', 'name']
     search_fields = ['id', 'name', 'description']
+
+
+@admin.register(ReferralCenterType)
+class ReferralCenterTypeAdmin(BaseAdmin, ImportExportModelAdmin):
+    resource_class = ReferralCenterTypeResource
+    readonly_fields = ['id', 'timestamp', 'last_modified']
+    list_display = ['id', 'name']
+    list_display_links = ['id', 'name']
+    search_fields = ['id', 'name']
 
 
 @admin.register(Referral)
