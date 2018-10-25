@@ -34,7 +34,7 @@ class DeliveryAdmin(PPAdmin):
     resource_class = DeliveryResource
     list_display = ['id', 'client']
     list_display_links = ['id', 'client']
-    list_filter = ['provider', 'date']
+    list_filter = ['date', 'services', 'referral_made', 'referral_successful', 'provider']
     filter_horizontal = ['services']
     raw_id_fields = ['client', 'provider', 'reviewer']
     search_fields = ['id', 'provider__username', 'services__name']
