@@ -191,7 +191,7 @@ class AbstractReferral(models.Model):
     referral_center = models.ForeignKey(
         'hivs_htc.ReferralCenter',
         related_name='htc_referrals',
-        verbose_name='referral center',
+        verbose_name='referred to',
         on_delete=models.SET_NULL,
         null=True
     )
@@ -205,20 +205,20 @@ class AbstractReferral(models.Model):
     referrer_center = models.ForeignKey(
         'hivs_htc.ReferralCenter',
         related_name='htc_referrers',
-        verbose_name='referrer center',
+        verbose_name='referred from',
         help_text=_('center that issues the referral'),
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
     issuer_name = models.CharField(
-        _('Issuer name'),
+        _('issuer name'),
         help_text=_('name of a person who issued the referral'),
         max_length=255,
         blank=True
     )
     issuer_designation = models.CharField(
-        _('Issuer name'),
+        _('issuer designation'),
         help_text=_('designation of a person who issued the referral'),
         max_length=255,
         blank=True
