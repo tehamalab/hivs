@@ -33,5 +33,5 @@ class CondomDistributionAdmin(BaseAdmin, ImportExportModelAdmin):
     raw_id_fields = ['center']
     list_display = ['id', 'center', 'date']
     list_display_links = ['id', 'center']
-    list_filter = ['date']
+    list_filter = ['date', 'gender', 'attendance_type', 'purpose']
     search_fields = ['id', 'center__name']

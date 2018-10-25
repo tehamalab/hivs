@@ -100,15 +100,6 @@ class AbstractCondomDistribution(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    hiv_education_delivered = models.BooleanField(
-        _('HIV education was delivered'),
-        default=False
-    )
-    hiv_education_topics = models.CharField(
-        _('HIV education topics delivered'),
-        max_length=255,
-        blank=True
-    )
     condoms_male_count = models.IntegerField(
         _('No. of male condoms provided'),
         help_text=_('No. of male condoms delivered'),
@@ -120,6 +111,22 @@ class AbstractCondomDistribution(models.Model):
         help_text=_('No. of male condoms delivered'),
         validators=[MinValueValidator(0)],
         default=0
+    )
+    purpose = models.ForeignKey(
+        'hivs_cd.Purpose',
+        related_name='condom_distributions',
+        verbose_name='purpose',
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    hiv_education_delivered = models.BooleanField(
+        _('HIV education was delivered'),
+        default=False
+    )
+    hiv_education_topics = models.CharField(
+        _('HIV education topics delivered'),
+        max_length=255,
+        blank=True
     )
     referral_given = models.BooleanField(_('referral was given'), default=False)
     referral_given_type = models.CharField(
