@@ -3,6 +3,7 @@ from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
 from hivs_utils.admin import BaseAdmin
 from .import_export import CategoryResource, ServiceResource, DeliveryResource
+from .forms import DeliveryForm
 
 
 Category = apps.get_registered_model('hivs_pp', 'Category')
@@ -31,6 +32,7 @@ class ServiceAdmin(PPAdmin):
 
 @admin.register(Delivery)
 class DeliveryAdmin(PPAdmin):
+    form = DeliveryForm
     resource_class = DeliveryResource
     list_display = ['id', 'client']
     list_display_links = ['id', 'client']

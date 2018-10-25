@@ -1,6 +1,7 @@
 django>=2.0,<2.1
 argon2-cffi
 psycopg2 --no-binary psycopg2
+python-dateutil
 python-dotenv
 django_compressor
 lxml
