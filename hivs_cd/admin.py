@@ -31,7 +31,7 @@ class PurposeAdmin(BaseAdmin, ImportExportModelAdmin):
 class CondomDistributionAdmin(BaseAdmin, ImportExportModelAdmin):
     resource_class = CondomDistributionResource
     raw_id_fields = ['center']
-    list_display = ['id', 'center', 'date']
+    list_display = ['id', 'center', 'condoms_male_count', 'condoms_female_count', 'date']
     list_display_links = ['id', 'center']
     list_filter = ['date', 'gender', 'attendance_type', 'purpose']
     search_fields = ['id', 'center__name']
