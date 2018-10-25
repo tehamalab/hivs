@@ -26,7 +26,7 @@ class ServiceAdmin(PPAdmin):
     resource_class = ServiceResource
     list_display = ['id', 'name']
     list_display_links = ['id', 'name']
-    list_filter = ['category']
+    list_filter = ['category', 'is_confidential']
     search_fields = ['id', 'name']
 
 
