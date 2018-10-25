@@ -65,7 +65,13 @@ class AbstractCondomDistribution(models.Model):
         null=True
     )
     distributor_name = models.CharField(_('distributor name'), max_length=255)
-    gender = models.CharField(_('client gender'), max_length=25)
+    gender = models.ForeignKey(
+        'hivs_utils.Gender',
+        related_name='condom_distributions',
+        verbose_name='client gender',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     age = models.IntegerField(_('client age'), validators=[MinValueValidator(0)])
     attendance_type = models.ForeignKey(
         'hivs_utils.AttendanceType',
