@@ -16,4 +16,4 @@ class ProfileAdmin(BaseAdmin, admin.OSMGeoAdmin, ImportExportModelAdmin):
     list_display_links = ['id', 'first_name', 'last_name']
     list_filter = ['gender', 'martial_status', 'timestamp']
     search_fields = ['id', 'first_name', 'last_name', 'registration_id',
-                     'area', 'street']
+                     'area__name', 'street__name']
