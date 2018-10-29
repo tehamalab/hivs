@@ -44,6 +44,8 @@ class DeliveryViewSet(viewsets.ModelViewSet):
                  'month', 'week', 'week_day', 'quarter'],
         'time': ['exact', 'lt', 'lte', 'gt', 'gte'],
         'client': ['exact'],
+        'area': ['exact'],
+        'area__name': ['exact', 'iexact'],
         'gender': ['exact'],
         'age': ['exact', 'lt', 'lte', 'gt', 'gte'],
         'services': ['exact', 'in'],

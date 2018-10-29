@@ -89,6 +89,14 @@ class AbstractDelivery(models.Model):
         blank=True,
         null=True
     )
+    area = models.ForeignKey(
+        'hivs_administrative.Area',
+        related_name='pp_deliveries',
+        verbose_name='area',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
     services = models.ManyToManyField(
         'hivs_pp.Service',
         related_name='deliveries',
@@ -141,13 +149,16 @@ class AbstractDelivery(models.Model):
         """
         Get gender and age from clients profiles confidential instances.
         """
+        errors = []
+
         if self.client:
-            errors = []
+
+            # try to populate gender from client's profile
             self.gender = self.client.gender or self.gender
-            if not self.gender:
-                errors.append(
-                    ValidationError(_("Could not find gender for the client."))
-                )
+
+            # try to populate area from client's profile if was not provided
+            self.area = self.area or self.client.area
+
             # calculate age
             if self.client.birthdate:
                 if self.date < self.client.birthdate:
@@ -156,7 +167,14 @@ class AbstractDelivery(models.Model):
                     )
                 self.age = relativedelta(self.date, self.client.birthdate).years
 
-            if errors:
-                raise ValidationError(errors)
+        # Ensure area , age and gender are provided.
+        for attr in ['area', 'age', 'gender']:
+            if not getattr(self, attr):
+                errors.append(
+                    ValidationError(_("Could not determine client's `{attr}`.".format(attr=attr)))
+                )
+
+        if errors:
+            raise ValidationError(errors)
 
         super(AbstractDelivery, self).clean(*args, **kwargs)
