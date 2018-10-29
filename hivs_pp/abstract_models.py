@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import JSONField, ArrayField
 
 
 class AbstractCategory(models.Model):
@@ -132,6 +132,20 @@ class AbstractDelivery(models.Model):
         null=True,
         blank=True
     )
+    related_areas_ids = ArrayField(
+        models.IntegerField(null=True, blank=True),
+        verbose_name=_('related areas ids'),
+        blank=True,
+        null=True,
+        editable=False
+    )
+    related_areas = ArrayField(
+        models.CharField(max_length=255, blank=True),
+        verbose_name=_('related areas'),
+        blank=True,
+        null=True,
+        editable=False
+    )
 
     class Meta:
         abstract = True
@@ -143,6 +157,15 @@ class AbstractDelivery(models.Model):
 
     def save(self, *args, **kwargs):
         self.full_clean()
+
+        # save related areas
+        self.related_areas = list(
+            self.area.get_ancestors(ascending=False, include_self=True).values_list('name', flat=True)
+        )
+        self.related_areas_ids = list(
+            self.area.get_ancestors(ascending=False, include_self=True).values_list('id', flat=True)
+        )
+
         super(AbstractDelivery, self).save(*args, **kwargs)
 
     def clean(self, *args, **kwargs):
