@@ -2,11 +2,15 @@ import pandas as pd
 from django.apps import apps
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from django.template.defaultfilters import slugify
+from rest_framework.settings import api_settings
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException, MethodNotAllowed
 from rest_framework.decorators import action
+from rest_framework_csv.renderers import CSVStreamingRenderer
 from .serializers import CategorySerializer, ServiceSerializer, DeliverySerializer
 
 
@@ -147,6 +151,7 @@ class DeliveryPivotViewSet(DeliveryViewSet):
     Prevention interventions Service Delivery Pivot Table.
     """
 
+    renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (CSVStreamingRenderer, )
     rows_fields = ['date', 'gender', 'age', 'area', 'area_name', 'services', 'referral_made',
                    'referral_successful']
     columns_fields = ['date', 'gender', 'age', 'area', 'services', 'referral_made',
@@ -244,4 +249,16 @@ class DeliveryPivotViewSet(DeliveryViewSet):
 
         # flatten the pivot
         df.columns = df.columns.to_series().str.join('_')
-        return Response(df.to_dict('index'))
+        df.reset_index(inplace=True)
+
+        return Response(df.to_dict('records'))
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        """Setup filename for CSV response."""
+        response = super(DeliveryPivotViewSet, self).finalize_response(
+            request, response, *args, **kwargs)
+
+        filename = '%s-%s.csv' % (slugify(self.get_view_name()), timezone.now().isoformat())
+        if response.accepted_renderer.format == 'csv':
+            response['content-disposition'] = 'attachment; filename=%s' % filename
+        return response

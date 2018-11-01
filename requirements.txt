@@ -16,6 +16,7 @@ django-debug-toolbar
 
 djangorestframework
 djangorestframework-gis
+djangorestframework-csv
 markdown
 django-filter
 
