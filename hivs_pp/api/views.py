@@ -126,8 +126,7 @@ class DeliveryViewSet(viewsets.ModelViewSet):
                 .extra(select={'area_id': 'related_areas_ids[%s]'}, select_params=(area_level + 1,))\
                 .extra(select={'area_name': 'related_areas[%s]'}, select_params=(area_level + 1,))
 
-        data = queryset.values(*by).annotate(count=Count('id'))[:100]
-        return data
+        return queryset.values(*by).annotate(count=Count('id'))
 
     @action(detail=False, methods=['get'])
     def total(self, request, *args, **kwargs):
