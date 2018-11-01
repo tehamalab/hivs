@@ -18,3 +18,5 @@ djangorestframework
 djangorestframework-gis
 markdown
 django-filter
+
+pandas
