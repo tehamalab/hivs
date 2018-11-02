@@ -1,4 +1,6 @@
+// index.js
 
+Vue.use(VueCharts);
 
 var app = new Vue({
     el: '#app',

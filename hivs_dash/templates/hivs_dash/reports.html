@@ -1,0 +1,79 @@
+{% extends 'hivs_dash/base.html' %}
+{% load static %}
+{% load compress %}
+
+{% block extra_head %}
+    {% compress css %}
+        <link href="{% static 'hivs_dash/vendor/vue-airbnb-style-datepicker/vue-airbnb-style-datepicker.min.css' %}" rel="stylesheet">
+    {% endcompress %}
+{% endblock extra_head %}
+
+
+{% block content %}
+    {% verbatim %}
+        <div id="app">
+            <div class="jumbotron pb-1">
+                <h2 class="border-bottom">Prevention interventions</h2>
+                <div>
+                    <div class="card-body" v-if="services">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="prevention-service">Service</label>
+                            </div>
+                            <select class="form-control" v-model="prevention.service" id="prevention-service">
+                                <option v-for="option in services.results" v-bind:value="option.id">
+                                    {{ option.name }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Report type</span>
+                            </div>
+    
+                            <select class="form-control" v-model="prevention.reportType" id="prevention-report-type">
+                                <option v-for="option, key in prevention.reports" v-bind:value="key">
+                                    {{ option.label }}
+                                </option>
+                            </select>
+                            <div class="datepicker-trigger">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="trigger-range"
+                                    :value=" prevention.dateRange.start + ' - ' + prevention.dateRange.end">
+                                <airbnb-style-datepicker
+                                    :trigger-element-id="'trigger-range'"
+                                    :date-one="prevention.dateRange.start"
+                                    :date-two="prevention.dateRange.end"
+                                    v-on:date-one-selected="function(val) { prevention.dateRange.start = val }"
+                                    v-on:date-two-selected="function(val) { prevention.dateRange.end = val }"
+                                ></airbnb-style-datepicker>
+                            </div>
+                        </div>
+
+                        <a :href="prevention.link" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-download"></i>
+                            Download report
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+    {% endverbatim %}
+{% endblock content %}
+
+
+{% block extra_js %}
+{% compress js %}
+    <script src="{% static 'hivs_dash/vendor/vue/vue.min.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/axios/axios.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/qs/qs.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/vue-airbnb-style-datepicker/vue-airbnb-style-datepicker.min.js' %}"></script>
+    <script src="{% static 'hivs_dash/js/base.js' %}"></script>
+    <script src="{% static 'hivs_dash/js/reports.js' %}"></script>
+{% endcompress %}
+{% endblock extra_js %}

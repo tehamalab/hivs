@@ -154,10 +154,23 @@ class DeliveryPivotViewSet(DeliveryViewSet):
     renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (CSVStreamingRenderer, )
     rows_fields = ['date', 'gender', 'age', 'area', 'area_name', 'services', 'referral_made',
                    'referral_successful']
-    columns_fields = ['date', 'gender', 'age', 'area', 'services', 'referral_made',
+    columns_fields = ['date', 'gender', 'gender__name', 'age', 'area', 'services', 'referral_made',
                       'referral_successful', 'count']
     values_fields = ['count']
     aggregations = ['mean', 'sum', 'count']
+
+    pivots_columns = {
+        'referrals': {
+            'count_False': 'unsuccessful_referrals',
+            'count_True': 'successful_referrals',
+            'count_total': 'referrals_made'
+        },
+        'gender': {
+            'count_Male': 'male',
+            'count_Female': 'female',
+            'count_total': 'total'
+        },
+    }
 
     def parse_pivot_request(self, request):
         """Parse request parameter for pivot table generation."""
@@ -184,7 +197,7 @@ class DeliveryPivotViewSet(DeliveryViewSet):
         except ValueError:
             raise APIException(_('Invalid `fill` value.'), status.HTTP_400_BAD_REQUEST)
 
-        agg = request.query_params.get('aggregation', 'mean')
+        agg = request.query_params.get('aggregation', 'sum')
         if agg not in self.aggregations:
             raise APIException(_('Invalid `aggregation`.'), status.HTTP_400_BAD_REQUEST)
 
@@ -227,11 +240,18 @@ class DeliveryPivotViewSet(DeliveryViewSet):
         """Count and pivot service deliveries by group."""
         count_params = self.parse_count_request(request)
         pivot_params = self.parse_pivot_request(request)
+        pivot_type = request.query_params.get('pivot_type')
 
+        # count
         counts = self.get_count(count_params['by'], count_params['area_level'])
+
+        # create datafrane
         df = pd.DataFrame(list(counts))
 
-        # Convert all column values to string to simplify flatten the pivot table
+        if df.empty:
+            return Response(df.to_dict('records'))
+
+        # Convert all column values to string to simplify flattening of the pivot table
         for col in pivot_params['columns']:
             df[col] = df[col].astype(str)
 
@@ -251,6 +271,10 @@ class DeliveryPivotViewSet(DeliveryViewSet):
         df.columns = df.columns.to_series().str.join('_')
         df.reset_index(inplace=True)
 
+        # rename some columns
+        if pivot_type and pivot_type in self.pivots_columns:
+            df.rename(columns=self.pivots_columns[pivot_type], inplace=True)
+
         return Response(df.to_dict('records'))
 
     def finalize_response(self, request, response, *args, **kwargs):
@@ -258,7 +282,9 @@ class DeliveryPivotViewSet(DeliveryViewSet):
         response = super(DeliveryPivotViewSet, self).finalize_response(
             request, response, *args, **kwargs)
 
-        filename = '%s-%s.csv' % (slugify(self.get_view_name()), timezone.now().isoformat())
         if response.accepted_renderer.format == 'csv':
+            filename = request.query_params.get('filename') \
+                or '%s-%s.csv' % (slugify(self.get_view_name()), timezone.now().isoformat())
             response['content-disposition'] = 'attachment; filename=%s' % filename
+
         return response
