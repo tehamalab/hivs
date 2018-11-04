@@ -154,25 +154,32 @@ class DeliveryPivotViewSet(DeliveryViewSet):
     renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (CSVStreamingRenderer, )
     rows_fields = ['date', 'gender', 'age', 'area', 'area_name', 'services', 'referral_made',
                    'referral_successful']
-    columns_fields = ['date', 'gender', 'gender__name', 'age', 'area', 'services', 'referral_made',
-                      'referral_successful', 'count']
+    columns_fields = ['date', 'gender', 'gender__name', 'age', 'age_range', 'area', 'services',
+                      'referral_made', 'referral_successful', 'count']
     values_fields = ['count']
     aggregations = ['mean', 'sum', 'count']
 
     pivots_columns = {
         'referrals': {
-            'count_False': 'unsuccessful_referrals',
-            'count_True': 'successful_referrals',
-            'count_total': 'referrals_made'
+            'count:False': 'unsuccessful_referrals',
+            'count:True': 'successful_referrals',
+            'count:total': 'referrals_made'
         },
         'gender': {
-            'count_Male': 'male',
-            'count_Female': 'female',
-            'count_total': 'total'
+            'count:Male': 'male',
+            'count:Female': 'female',
+            'count:total': 'total'
         },
         'age': {
-            'count_total': 'total',
-            'count_': 'age_',
+            'count:total': 'total',
+            'count:': 'age_',
+        },
+        'age_range': {
+            'count:total': 'total',
+            'count:nan': 'age_other',
+            'count:': 'age_',
+            'age:Male|Male': 'male',
+            'age:Female|Female': 'female',
         },
     }
 
@@ -255,6 +262,31 @@ class DeliveryPivotViewSet(DeliveryViewSet):
         if df.empty:
             return Response(df.to_dict('records'))
 
+        if pivot_type == 'age_range':
+            if 'age' not in df:
+                raise APIException(_('`age` values not in dataset.'), status.HTTP_400_BAD_REQUEST)
+
+            bins = request.query_params.get('range_limits', '').split(',')
+            if not bins:
+                raise APIException(_('Missing `range_limits`.'), status.HTTP_400_BAD_REQUEST)
+            elif len(bins) < 2:
+                raise APIException(_('`range_limits` must contain at least 2 values.'),
+                                   status.HTTP_400_BAD_REQUEST)
+            try:
+                bins = [int(i) for i in bins]
+            except ValueError:
+                raise APIException(_('Invalid `range_limits`.'), status.HTTP_400_BAD_REQUEST)
+
+            labels = request.query_params.get('range_labels', '').split(',')
+            if labels and len(labels) != (len(bins) - 1):
+                raise APIException(_('Invalid `range_labels`.'), status.HTTP_400_BAD_REQUEST)
+            elif not labels:
+                for i, v in enumerate(bins):
+                    if i is not 0:
+                        labels.append('{}-{}'.format(bins[i-1], v))
+
+            df = df.assign(age_range=pd.cut(df.age, bins=bins, labels=labels, right=False))
+
         # Convert all column values to string to simplify flattening of the pivot table
         for col in pivot_params['columns']:
             df[col] = df[col].astype(str)
@@ -272,7 +304,7 @@ class DeliveryPivotViewSet(DeliveryViewSet):
         )
 
         # flatten the pivot
-        df.columns = df.columns.to_series().str.join('_')
+        df.columns = df.columns.to_series().str.join(':')
         df.reset_index(inplace=True)
 
         # rename some columns

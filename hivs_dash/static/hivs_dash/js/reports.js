@@ -67,7 +67,79 @@ var app = new Vue({
                         pivot_type: 'age',
                         filename: 'by-age.csv'
                     }
-                }
+                },
+                ageRange0151824100: {
+                    label: 'by age range 15-17, 18-24',
+                    link: '',
+                    uri: apiRoot + 'prevention/pivot/count',
+                    params: {
+                        by: ['related_areas', 'age'],
+                        area_level: 1,
+                        rows: 'area_name',
+                        columns: ['age_range'],
+                        values: ['count'],
+                        format: 'csv',
+                        totals: 'total',
+                        pivot_type: 'age_range',
+                        range_limits: '0,15,18,24,100',
+                        range_labels: '15-,15-17,18-24,24+',
+                        filename: 'by-age-range-15-17_18-24.csv'
+                    }
+                },
+                ageRange0152024100: {
+                    label: 'by age range 15-19, 20-24',
+                    link: '',
+                    uri: apiRoot + 'prevention/pivot/count',
+                    params: {
+                        by: ['related_areas', 'age'],
+                        area_level: 1,
+                        rows: 'area_name',
+                        columns: ['age_range'],
+                        values: ['count'],
+                        format: 'csv',
+                        totals: 'total',
+                        pivot_type: 'age_range',
+                        range_limits: '0,15,20,24,100',
+                        range_labels: '15-,15-19,20-24,24+',
+                        filename: 'by-age-range-15-19_20-24.csv'
+                    }
+                },
+                genderAgeRange0151824100: {
+                    label: 'by gender and age range 15-17, 18-24',
+                    link: '',
+                    uri: apiRoot + 'prevention/pivot/count',
+                    params: {
+                        by: ['related_areas', 'age', 'gender__name'],
+                        area_level: 1,
+                        rows: 'area_name',
+                        columns: ['age_range', 'gender__name'],
+                        values: ['count'],
+                        format: 'csv',
+                        totals: 'total',
+                        pivot_type: 'age_range',
+                        range_limits: '0,15,18,24,100',
+                        range_labels: '15-,15-17,18-24,24+',
+                        filename: 'by-gender-age-range-15-17_18-24.csv'
+                    }
+                },
+                genderAgeRange0152024100: {
+                    label: 'by gender and age range 15-19, 20-24',
+                    link: '',
+                    uri: apiRoot + 'prevention/pivot/count',
+                    params: {
+                        by: ['related_areas', 'age', 'gender__name'],
+                        area_level: 1,
+                        rows: 'area_name',
+                        columns: ['age_range', 'gender__name'],
+                        values: ['count'],
+                        format: 'csv',
+                        totals: 'total',
+                        pivot_type: 'age_range',
+                        range_limits: '0,15,20,24,100',
+                        range_labels: 'less than 15,15-19,20-24,24+',
+                        filename: 'by-gender-age-range-15-19_20-24.csv'
+                    }
+                },
             }
             
         },
