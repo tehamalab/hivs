@@ -51,6 +51,22 @@ var app = new Vue({
                         pivot_type: 'gender',
                         filename: 'by-gender.csv'
                     }
+                },
+                age: {
+                    label: 'by age',
+                    link: '',
+                    uri: apiRoot + 'prevention/pivot/count',
+                    params: {
+                        by: ['related_areas', 'age'],
+                        area_level: 1,
+                        rows: 'area_name',
+                        columns: ['age'],
+                        values: ['count'],
+                        format: 'csv',
+                        totals: 'total',
+                        pivot_type: 'age',
+                        filename: 'by-age.csv'
+                    }
                 }
             }
             

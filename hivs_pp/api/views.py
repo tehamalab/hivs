@@ -170,6 +170,10 @@ class DeliveryPivotViewSet(DeliveryViewSet):
             'count_Female': 'female',
             'count_total': 'total'
         },
+        'age': {
+            'count_total': 'total',
+            'count_': 'age_',
+        },
     }
 
     def parse_pivot_request(self, request):
@@ -273,7 +277,8 @@ class DeliveryPivotViewSet(DeliveryViewSet):
 
         # rename some columns
         if pivot_type and pivot_type in self.pivots_columns:
-            df.rename(columns=self.pivots_columns[pivot_type], inplace=True)
+            for old, new in self.pivots_columns[pivot_type].items():
+                df.columns = df.columns.str.replace(old, new)
 
         return Response(df.to_dict('records'))
 
