@@ -15,7 +15,6 @@ var app = new Vue({
         prevention: {
             service: null,
             link: '',
-            filename: '',
             reportType: 'referral',
             dateRange: {start: '', end: ''},
             reports: {
@@ -177,10 +176,20 @@ var app = new Vue({
         updatePreventionReportLink() {
             var uri = this.prevention.reports[this.prevention.reportType].uri
             var params = JSON.parse(JSON.stringify(this.prevention.reports[this.prevention.reportType].params));
+            var service = _.find(this.services.results, {'id': this.prevention.service});
 
             params.services = this.prevention.service
             params.date__gte = this.prevention.dateRange.start
             params.date__lte = this.prevention.dateRange.end
+
+            // filename = service name report_type date_lte date_gte
+            params.filename = slugify([
+                service.name,
+                this.prevention.reports[this.prevention.reportType].label,
+                params.date__lte,
+                'to',
+                params.date__gte
+            ].join('-')) + '.csv'
 
             this.prevention.link = uri + '?' + Qs.stringify(params, { indices: false })
         }

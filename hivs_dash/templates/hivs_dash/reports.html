@@ -42,7 +42,7 @@
                                     class="form-control"
                                     type="text"
                                     id="trigger-range"
-                                    :value=" prevention.dateRange.start + ' - ' + prevention.dateRange.end">
+                                    :value=" prevention.dateRange.start + ' to ' + prevention.dateRange.end">
                                 <airbnb-style-datepicker
                                     :trigger-element-id="'trigger-range'"
                                     :date-one="prevention.dateRange.start"
@@ -73,6 +73,7 @@
     <script src="{% static 'hivs_dash/vendor/axios/axios.js' %}"></script>
     <script src="{% static 'hivs_dash/vendor/qs/qs.js' %}"></script>
     <script src="{% static 'hivs_dash/vendor/vue-airbnb-style-datepicker/vue-airbnb-style-datepicker.min.js' %}"></script>
+    <script src="{% static 'hivs_dash/vendor/lodash/lodash.min.js' %}"></script>
     <script src="{% static 'hivs_dash/js/base.js' %}"></script>
     <script src="{% static 'hivs_dash/js/reports.js' %}"></script>
 {% endcompress %}
