@@ -26,6 +26,18 @@
                                         Last month.
                                         <span class="badge badge-warning">{{ prevention.lastMonth.count }}</span>
                                     </p>
+
+                                    <div v-if="prevention.thisMonth.genderSeries">
+                                        <chartjs-bar
+                                            :bind="true"
+                                            :datalabel="'By gender'"
+                                            :labels="prevention.thisMonth.genderSeries.labels"
+                                            :data="prevention.thisMonth.genderSeries.data"
+                                            :height="250"
+                                            :width:="250"
+                                        >
+                                        </chartjs-bar>
+                                    </div>
                                 </div>
 
                                 <div class="col-sm-7">

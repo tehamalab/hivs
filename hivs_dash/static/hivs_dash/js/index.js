@@ -12,10 +12,14 @@ var app = new Vue({
     el: '#app',
     data: {
         prevention: {
-            thisMonth: {},
-            lastMonth: {},
-            thisYear: {},
-            lastYear: {},
+            thisMonth: {
+                count: null,
+                services: null,
+                genderSeries: null,
+            },
+            lastMonth: {count: null},
+            thisYear: {count: null},
+            lastYear: {count: null},
         },
         clientsTotal: {count: null},
         dailyAquisition: {
@@ -162,7 +166,25 @@ var app = new Vue({
                 this.prevention.thisMonth.services = _.orderBy(response.data, 'count', 'desc');
             })
             .catch(error => {console.log(error)});
-        
+
+        // get this month prevention interventions by gender
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/count/', {
+                params: {
+                    by: 'gender__name',
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.prevention.thisMonth.genderSeries = {labels: [], data: []};
+                response.data.forEach((obj) => {
+                    this.prevention.thisMonth.genderSeries.labels.push(obj.gender__name);
+                    this.prevention.thisMonth.genderSeries.data.push(obj.count);
+                })
+            })
+
         // daily aquisitions
         axios
             .get(
