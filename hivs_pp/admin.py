@@ -24,8 +24,9 @@ class CategoryAdmin(PPAdmin):
 @admin.register(Service)
 class ServiceAdmin(PPAdmin):
     resource_class = ServiceResource
-    list_display = ['id', 'name']
+    list_display = ['id', 'name', 'category', 'is_confidential']
     list_display_links = ['id', 'name']
+    list_select_related = ['category']
     list_filter = ['category', 'is_confidential']
     search_fields = ['id', 'name']
 
