@@ -2,9 +2,21 @@
 
 Vue.use(VueCharts);
 
+
+var now = new Date();
+var lastMonth = new Date();
+lastMonth.setMonth(lastMonth.getMonth() - 1);
+
+
 var app = new Vue({
     el: '#app',
     data: {
+        prevention: {
+            thisMonth: {},
+            lastMonth: {},
+            thisYear: {},
+            lastYear: {},
+        },
         clientsTotal: {count: null},
         dailyAquisition: {
             date: [],
@@ -81,10 +93,79 @@ var app = new Vue({
         },
     },
     mounted () {
-        var now = new Date();
-        var lastMonth = new Date();
-        lastMonth.setMonth(lastMonth.getMonth() - 1);
 
+        // get this month prevention interventions totals
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/total/', {
+                params: {
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.prevention.thisMonth.count = response.data.count;
+            })
+            .catch(error => {console.log(error)});
+
+        // get last month prevention interventions totals
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/total/', {
+                params: {
+                    date__month: lastMonth.getMonth() + 1,
+                    date__year: lastMonth.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.prevention.lastMonth.count = response.data.count;
+            })
+            .catch(error => {console.log(error)});
+
+        // get this year prevention interventions totals
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/total/', {
+                params: {
+                    date__year: now.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.prevention.thisYear.count = response.data.count;
+            })
+            .catch(error => {console.log(error)});
+
+        // get last month prevention interventions totals
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/total/', {
+                params: {
+                    date__year: now.getFullYear() - 1,
+                }
+            })
+            .then((response) => {
+                this.prevention.lastYear.count = response.data.count;
+            })
+            .catch(error => {console.log(error)});
+
+        // get prevention services count
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/count/', {
+                params: {
+                    by: 'services__name',
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                }
+            })
+            .then((response) => {
+                // this.prevention.thisMonth.services = response.data;
+                this.prevention.thisMonth.services = _.orderBy(response.data, 'count', 'desc');
+                console.log(this.prevention.thisMonth.services);
+                // this.prevention.thisMonth.services = response.data;
+            })
+            .catch(error => {console.log(error)});
+        
         // daily aquisitions
         axios
             .get(
