@@ -15,7 +15,7 @@ var app = new Vue({
             thisMonth: {},
             lastMonth: {},
             thisYear: {},
-            lastMonth: {},
+            lastYear: {},
         },
         clientsTotal: {count: null},
         dailyAquisition: {
@@ -136,17 +136,17 @@ var app = new Vue({
             .catch(error => {console.log(error)});
 
         // get last year prevention interventions totals
-        //~ axios
-            //~ .get(
-                //~ apiRoot + 'prevention/deliveries/total/', {
-                //~ params: {
-                    //~ date__year: now.getFullYear() - 1,
-                //~ }
-            //~ })
-            //~ .then((response) => {
-                //~ this.prevention.lastYear.count = response.data.count;
-            //~ })
-            //~ .catch(error => {console.log(error)});
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/total/', {
+                params: {
+                    date__year: now.getFullYear() - 1,
+                }
+            })
+            .then((response) => {
+                this.prevention.lastYear.count = response.data.count;
+            })
+            .catch(error => {console.log(error)});
 
         // get prevention services count
         axios
