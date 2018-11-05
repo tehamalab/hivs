@@ -34,8 +34,9 @@ class ServiceAdmin(PPAdmin):
 class DeliveryAdmin(PPAdmin):
     form = DeliveryForm
     resource_class = DeliveryResource
-    list_display = ['id', 'client']
-    list_display_links = ['id', 'client']
+    list_display = ['id', 'date', 'gender', 'age', 'referral_made', 'referral_successful']
+    list_display_links = ['id', 'date']
+    list_select_related = ['gender']
     list_filter = ['date', 'services', 'referral_made', 'referral_successful', 'provider']
     filter_horizontal = ['services']
     raw_id_fields = ['client', 'provider', 'reviewer']
