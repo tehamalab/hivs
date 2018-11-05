@@ -49,7 +49,7 @@ class DeliveryViewSet(viewsets.ModelViewSet):
     """
     Prevention interventions Service Delivery.
     """
-    queryset = Delivery.objects.all()
+    queryset = Delivery.objects.prefetch_related('services')
     serializer_class = DeliverySerializer
     filterset_fields = {
         'date': ['exact', 'lt', 'lte', 'gt', 'gte', 'year',
