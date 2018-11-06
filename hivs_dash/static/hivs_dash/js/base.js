@@ -9,3 +9,7 @@ function slugify(text) {
     .replace(/^-+/, '')             // Trim - from start of text
     .replace(/-+$/, '');            // Trim - from end of text
 }
+
+function percentagize(value, total, decimals=1) {
+    return ((value/total) * 100).toFixed(decimals);
+}

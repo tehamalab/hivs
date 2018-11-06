@@ -14,8 +14,12 @@ var app = new Vue({
         prevention: {
             thisMonth: {
                 count: null,
-                services: null,
-                genderSeries: null,
+                services: {},
+                genderSeries: {},
+                referrals: {
+                    made: null,
+                    succesful: null,
+                },
             },
             lastMonth: {count: null},
             thisYear: {count: null},
@@ -178,11 +182,41 @@ var app = new Vue({
                 }
             })
             .then((response) => {
-                this.prevention.thisMonth.genderSeries = {labels: [], data: []};
+                this.prevention.thisMonth.genderSeries.labels = [];
+                this.prevention.thisMonth.genderSeries.data = [];
                 response.data.forEach((obj) => {
                     this.prevention.thisMonth.genderSeries.labels.push(obj.gender__name);
                     this.prevention.thisMonth.genderSeries.data.push(obj.count);
                 })
+            })
+
+        // get this month prevention interventions referrals made count
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/total/', {
+                params: {
+                    referral_made: true,
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.prevention.thisMonth.referrals.made = response.data;
+            })
+
+        // get this month prevention interventions succesfull referrals count
+        axios
+            .get(
+                apiRoot + 'prevention/deliveries/total/', {
+                params: {
+                    referral_made: true,
+                    referral_successful: true,
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.prevention.thisMonth.referrals.successful = response.data;
             })
 
         // daily aquisitions

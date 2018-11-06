@@ -18,10 +18,11 @@
                     <div class="card">
                         <div class="card-body">
                             
-                            <h5 class="card-title text-muted text-center">Prevention Interventions this month</h5>
+                            <h5 class="card-title text-muted text-center">Prevention Interventions this month so far</h5>
                             <div class="row">
                                 <div class="col-sm-5 text-center">
-                                    <p class="display-1 text-info">{{ prevention.thisMonth.count }}</p>
+                                    <p class="display-1 text-info mb-0">{{ prevention.thisMonth.count }}</p>
+                                    <p class="small pt-0 mt-0 text-info">Interventions</p>
                                     <p class="text-muted">
                                         Last month.
                                         <span class="badge badge-warning">{{ prevention.lastMonth.count }}</span>
@@ -30,13 +31,30 @@
                                     <div v-if="prevention.thisMonth.genderSeries">
                                         <chartjs-bar
                                             :bind="true"
-                                            :datalabel="'By gender'"
+                                            :datalabel="'Interventions per gender'"
                                             :labels="prevention.thisMonth.genderSeries.labels"
                                             :data="prevention.thisMonth.genderSeries.data"
                                             :height="250"
                                             :width:="250"
                                         >
                                         </chartjs-bar>
+                                    </div>
+
+                                    <div v-if="prevention.thisMonth.referrals.made" class="border-top mt-3">
+                                        <div>
+                                            <p class="lead pt-4 text-muted">Referrals made</p>
+                                            <p class="display-2 text-black-50">
+                                                {{ prevention.thisMonth.referrals.made.count }}
+                                            </p>
+                                            <p v-if="prevention.thisMonth.referrals.successful">
+                                                <span class="badge badge-success">
+                                                    {{ percentagize(prevention.thisMonth.referrals.successful.count, prevention.thisMonth.referrals.made.count) }} %
+                                                </span>
+                                                <span class="text-muted">
+                                                    successful referrals.
+                                                </span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
 
