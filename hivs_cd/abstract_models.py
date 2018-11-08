@@ -149,6 +149,7 @@ class AbstractCondomDistribution(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
+    remarks = models.TextField(_('remarks'), blank=True)
     timestamp = models.DateTimeField('created', auto_now_add=True)
     last_modified = models.DateTimeField(
         _('last modified'),
