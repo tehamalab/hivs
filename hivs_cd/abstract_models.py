@@ -77,14 +77,17 @@ class AbstractPurpose(models.Model):
 
 class AbstractCondomDistribution(models.Model):
     date = models.DateField(_('date'))
-    center = models.ForeignKey(
-        'hivs_cd.Center',
+    client = models.ForeignKey(
+        'hivs_clients.Profile',
         related_name='condom_distributions',
-        verbose_name='distribution center',
+        verbose_name=_('client profile'),
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
-    distributor_name = models.CharField(_('distributor name'), max_length=255)
+    first_name = models.CharField(_('client first name'), max_length=255, blank=True)
+    middle_name = models.CharField(_('client middle name'), max_length=255, blank=True)
+    last_name = models.CharField(_('client surname'), max_length=255, blank=True)
     gender = models.ForeignKey(
         'hivs_utils.Gender',
         related_name='condom_distributions',
@@ -119,20 +122,32 @@ class AbstractCondomDistribution(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    hiv_education_delivered = models.BooleanField(
-        _('HIV education was delivered'),
+    education_delivered = models.BooleanField(
+        _('Education was delivered'),
         default=False
     )
-    hiv_education_topics = models.CharField(
-        _('HIV education topics delivered'),
-        max_length=255,
+    education_topics = models.ManyToManyField(
+        'hivs_utils.Topic',
+        related_name='condom_distributions',
+        verbose_name=_('Education topics delivered')
+    )
+    referral_made = models.BooleanField(_('referral was given'), default=False)
+    referral_type = models.ForeignKey(
+        'hivs_htc.ReferralCenterType',
+        related_name='condom_distriputions',
+        verbose_name='type of referral given',
+        on_delete=models.SET_NULL,
+        null=True,
         blank=True
     )
-    referral_given = models.BooleanField(_('referral was given'), default=False)
-    referral_given_type = models.CharField(
-        _('referred to'),
-        max_length=255,
-        blank=True
+    distributor_name = models.CharField(_('distributor name'), max_length=255)
+    distributor_contact = models.CharField(_('distributor contact'), max_length=255, blank=True)
+    center = models.ForeignKey(
+        'hivs_cd.Center',
+        related_name='condom_distributions',
+        verbose_name='distribution center',
+        on_delete=models.SET_NULL,
+        null=True
     )
     timestamp = models.DateTimeField('created', auto_now_add=True)
     last_modified = models.DateTimeField(
