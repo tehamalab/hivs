@@ -63,3 +63,10 @@ class ResultSharingChoice(AbstractChoice):
     class Meta:
         verbose_name = _('Result Sharing Choice')
         verbose_name_plural = _('Result Sharing Choices')
+
+
+class Topic(AbstractChoice):
+
+    class Meta:
+        verbose_name = _('Topic')
+        verbose_name_plural = _('Topics')

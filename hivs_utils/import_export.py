@@ -11,6 +11,7 @@ AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
 TBStatus = apps.get_model('hivs_utils', 'TBStatus')
 ResultSharingChoice = apps.get_model('hivs_utils', 'ResultSharingChoice')
+Topic = apps.get_model('hivs_utils', 'Topic')
 
 
 class GenderResource(resources.ModelResource):
@@ -65,3 +66,9 @@ class ResultSharingChoiceResource(resources.ModelResource):
 
     class Meta:
         model = ResultSharingChoice
+
+
+class TopicResource(resources.ModelResource):
+
+    class Meta:
+        model = Topic

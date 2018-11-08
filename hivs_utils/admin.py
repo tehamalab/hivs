@@ -7,7 +7,7 @@ from .import_export import (GenderResource, MartialStatusResource,
                             EducationLevelResource, OccupationResource,
                             PregnancyStatusResource, AttendanceTypeResource,
                             HIVStatusResource, TBStatusResource,
-                            ResultSharingChoiceResource)
+                            ResultSharingChoiceResource, TopicResource)
 
 
 Gender = apps.get_model('hivs_utils', 'Gender')
@@ -19,6 +19,7 @@ AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
 TBStatus = apps.get_model('hivs_utils', 'TBStatus')
 ResultSharingChoice = apps.get_model('hivs_utils', 'ResultSharingChoice')
+Topic = apps.get_model('hivs_utils', 'Topic')
 
 
 class BaseAdmin:
@@ -70,3 +71,8 @@ class TBStatusAdmin(BaseAdmin, ImportExportModelAdmin):
 @admin.register(ResultSharingChoice)
 class ResultSharingChoiceAdmin(BaseAdmin, ImportExportModelAdmin):
     resource_class = ResultSharingChoiceResource
+
+
+@admin.register(Topic)
+class TopicAdmin(BaseAdmin, ImportExportModelAdmin):
+    resource_class = TopicResource
