@@ -18,6 +18,7 @@ class CenterAdmin(BaseAdmin, admin.OSMGeoAdmin, ImportExportModelAdmin):
     list_display = ['id', 'name', 'center_no']
     list_display_links = ['id', 'name']
     search_fields = ['name', 'id', 'center_no', 'area']
+    ordering = ['id']
 
 
 @admin.register(Purpose)
@@ -26,6 +27,7 @@ class PurposeAdmin(BaseAdmin, ImportExportModelAdmin):
     list_display = ['id', 'name', 'code']
     list_display_links = ['id', 'name']
     search_fields = ['name', 'id']
+    ordering = ['id']
 
 
 @admin.register(CondomDistribution)
@@ -40,3 +42,5 @@ class CondomDistributionAdmin(BaseAdmin, ImportExportModelAdmin):
                    'purpose', 'referral_made']
     search_fields = ['id', 'center__name',
                      'client_first_name', 'client_middle_name', 'client_last_name']
+    filter_horizontal = ['education_topics']
+    ordering = ['-date']

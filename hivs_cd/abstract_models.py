@@ -1,6 +1,8 @@
+from dateutil.relativedelta import relativedelta
 from django.contrib.gis.db import models
 from django.core.validators import MinValueValidator
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 from django.contrib.postgres.fields import JSONField
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -28,7 +30,7 @@ class AbstractCenter(models.Model):
         blank=True,
         null=True
     )
-    location = models.CharField(_('location description'), max_length=255)
+    location = models.CharField(_('location description'), max_length=255, blank=True)
     geolocation = models.PointField(
         _('geolocation'),
         blank=True,
@@ -85,17 +87,19 @@ class AbstractCondomDistribution(models.Model):
         null=True,
         blank=True
     )
-    first_name = models.CharField(_('client first name'), max_length=255, blank=True)
-    middle_name = models.CharField(_('client middle name'), max_length=255, blank=True)
-    last_name = models.CharField(_('client surname'), max_length=255, blank=True)
     gender = models.ForeignKey(
         'hivs_utils.Gender',
         related_name='condom_distributions',
         verbose_name='client gender',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
-    age = models.IntegerField(_('client age'), validators=[MinValueValidator(0)])
+    age = models.IntegerField(
+        _('client age'),
+        validators=[MinValueValidator(0)],
+        blank=True,
+    )
     attendance_type = models.ForeignKey(
         'hivs_utils.AttendanceType',
         related_name='condom_distributions',
@@ -166,3 +170,38 @@ class AbstractCondomDistribution(models.Model):
 
     def __str__(self):
         return '{}: {}'.format(self.center.name, self.date)
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(AbstractCondomDistribution, self).save(*args, **kwargs)
+
+    def clean(self, *args, **kwargs):
+        """
+        Get gender and age from clients profile info.
+        """
+        errors = []
+
+        if self.client:
+
+            # try to populate gender from client's profile
+            self.gender = self.client.gender or self.gender
+
+            # calculate age
+            if self.client.birthdate:
+                if self.date < self.client.birthdate:
+                    errors.append(
+                        ValidationError(_("Services date can not be before the client's birthdate."))
+                    )
+                self.age = relativedelta(self.date, self.client.birthdate).years
+
+        # Ensure area , age and gender are provided.
+        for attr in ['age', 'gender']:
+            if not getattr(self, attr):
+                errors.append(
+                    ValidationError(_("Could not determine client's `{attr}`.".format(attr=attr)))
+                )
+
+        if errors:
+            raise ValidationError(errors)
+
+        super(AbstractCondomDistribution, self).clean(*args, **kwargs)
