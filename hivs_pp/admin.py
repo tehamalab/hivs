@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.apps import apps
 from import_export.admin import ImportExportModelAdmin
+from rangefilter.filter import DateRangeFilter
 from hivs_utils.admin import BaseAdmin
 from .import_export import CategoryResource, ServiceResource, DeliveryResource
 from .forms import DeliveryForm
@@ -38,7 +39,8 @@ class DeliveryAdmin(PPAdmin):
     list_display = ['id', 'date', 'gender', 'age', 'referral_made', 'referral_successful']
     list_display_links = ['id', 'date']
     list_select_related = ['gender']
-    list_filter = ['date', 'services', 'referral_made', 'referral_successful', 'provider']
+    list_filter = ['date', ('date', DateRangeFilter), 'services',
+                   'referral_made', 'referral_successful', 'provider']
     filter_horizontal = ['services']
     raw_id_fields = ['client', 'provider', 'reviewer']
     search_fields = ['id', 'provider__username', 'services__name']
