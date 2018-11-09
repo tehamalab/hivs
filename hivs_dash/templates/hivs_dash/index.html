@@ -18,7 +18,9 @@
                     <div class="card">
                         <div class="card-body">
                             
-                            <h5 class="card-title text-muted text-center">Prevention Interventions this month so far</h5>
+                            <h5 class="card-title text-muted text-center border-bottom border-light pb-2 mb-2">
+                                Prevention Interventions this month so far
+                            </h5>
                             <div class="row">
                                 <div class="col-sm-5 text-center">
                                     <p class="display-1 text-info mb-0">{{ prevention.thisMonth.count }}</p>
@@ -76,7 +78,9 @@
                     <div class="card">
                         <div class="card-body">
                             
-                            <h6 class="card-title text-center text-muted">Prevention Interventions this year so far</h6>
+                            <h6 class="card-title text-center text-muted border-bottom border-light pb-2 mb-2">
+                                Prevention Interventions this year so far
+                            </h6>
                             <div class="row">
                                 <div class="col-sm-12 text-center">
                                     <p class="display-1 text-info">{{ prevention.thisYear.count }}</p>
@@ -93,7 +97,72 @@
 
             </div>
 
-            <hr class='my-4 py-4'>
+            <hr class='my-4 py-2'>
+
+            <h1 class="display-4 border-bottom text-info"><small>Condoms Distribution</small></h1>
+
+            <div class="row pt-3">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted text-center border-bottom border-light pb-2 mb-2">
+                                Condoms Distribution this month so far
+                            </h5>
+
+                            <div class="row">
+                                <div class="col-sm-3 text-center border-right">
+                                    <p class="display-1 text-info mb-0" v-if="condom.thisMonth.total">{{ condom.thisMonth.total.condoms_count }}</p>
+                                    <p class="small pt-0 mt-0 text-info">Condoms Distributed</p>
+                                    <p class="text-muted">
+                                        Last month.
+                                        <span class="badge badge-warning" v-if="condom.lastMonth.total">{{ condom.lastMonth.total.condoms_count }}</span>
+                                    </p>
+                                </div>
+                    
+                                <div class="col-sm-3 border-right" v-if="condom.thisMonth.total">
+                                    <div class="text-center text-info"><strong>Type</strong></div>
+                                    <div class="lead">
+                                        <span class="display-4 text-warning">{{ condom.thisMonth.total.condoms_male_count || '-' }}</span> Male condoms
+                                    </div>
+                                    <hr>
+                                    <div class="lead">
+                                        <span class="display-4 text-warning">{{ condom.thisMonth.total.condoms_female_count || '-' }}</span> Female condoms
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 border-right" v-if="condom.thisMonth.gender">
+                                    <div class="text-center text-info"><strong>Clients gender</strong></div>
+                                    <div class="lead text-center" v-for="item, index in condom.thisMonth.gender">
+                                        <span class="display-4 text-warning">{{ item.count || '-' }}</span> {{ item.gender__name }}
+                                        <hr v-if="index != condom.thisMonth.gender.length - 1">
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3 border-right" v-if="condom.thisMonth.centers">
+                                    <div class="text-center text-info"><strong>Distribution Centers</strong></div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                                                v-for="item in condom.thisMonth.centers">
+                                            {{ item.center__name }}
+                                            <span class="badge badge-primary badge-pill">{{ item.condoms_count }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <div class="text-center my-4 pt-4" v-if="condom.thisMonth.purpose">
+                                <strong class="text-muted">Purpose:</strong>
+                                <div class="btn btn-light" v-for="item in condom.thisMonth.purpose">
+                                    {{ item.purpose__name }} <span class="badge badge-warning">{{ item.condoms_count }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class='my-4 py-2'>
 
             <h1 class="display-4 border-bottom text-info"><small>Clients Profiles</small></h1>
 

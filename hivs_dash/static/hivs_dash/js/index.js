@@ -25,6 +25,15 @@ var app = new Vue({
             thisYear: {count: null},
             lastYear: {count: null},
         },
+        condom: {
+            thisMonth: {
+                total: {},
+                gender: {},
+                centers: {},
+                purpose: {},
+            },
+            lastMonth: {total: null},
+        },
         clientsTotal: {count: null},
         dailyAquisition: {
             date: [],
@@ -217,6 +226,74 @@ var app = new Vue({
             })
             .then((response) => {
                 this.prevention.thisMonth.referrals.successful = response.data;
+            })
+
+        // get this month condom distribution
+        axios
+            .get(
+                apiRoot + 'condom/distributions/total/', {
+                params: {
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.condom.thisMonth.total = response.data;
+            })
+
+        // get last month condom distribution
+        axios
+            .get(
+                apiRoot + 'condom/distributions/total/', {
+                params: {
+                    date__month: lastMonth.getMonth() + 1,
+                    date__year: lastMonth.getFullYear(),
+                }
+            })
+            .then((response) => {
+                this.condom.lastMonth.total = response.data;
+            })
+
+        // get this month condom distribution by gender
+        axios
+            .get(
+                apiRoot + 'condom/distributions/count/', {
+                params: {
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                    by: 'gender__name'
+                }
+            })
+            .then((response) => {
+                this.condom.thisMonth.gender = response.data;
+            })
+
+        // get this month condom distribution by center
+        axios
+            .get(
+                apiRoot + 'condom/distributions/sum/', {
+                params: {
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                    by: 'center__name'
+                }
+            })
+            .then((response) => {
+                this.condom.thisMonth.centers = response.data;
+            })
+
+        // get this month condom distribution by purposse
+        axios
+            .get(
+                apiRoot + 'condom/distributions/sum/', {
+                params: {
+                    date__month: now.getMonth() + 1,
+                    date__year: now.getFullYear(),
+                    by: 'purpose__name'
+                }
+            })
+            .then((response) => {
+                this.condom.thisMonth.purpose = response.data;
             })
 
         // daily aquisitions
