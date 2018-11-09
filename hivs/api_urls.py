@@ -3,7 +3,12 @@ from rest_framework import routers
 from hivs_administrative.api.views import AreaTypeViewSet, AreaViewSet, StreetViewSet
 from hivs_clients.api.views import ProfileViewSet
 from hivs_pp.api.views import CategoryViewSet, ServiceViewSet, DeliveryViewSet, DeliveryPivotViewSet
-from hivs_cd.api.views import CenterViewSet, PurposeViewSet, CondomDistributionViewSet
+from hivs_cd.api.views import (
+    CenterViewSet,
+    PurposeViewSet,
+    CondomDistributionViewSet,
+    CondomDistributionPivotViewSet
+)
 from hivs_utils.api.views import (
     GenderViewSet,
     MartialStatusViewSet,
@@ -40,6 +45,7 @@ router.register(r'prevention/pivot', DeliveryPivotViewSet, 'delivery-pivot')
 router.register(r'condom/centers', CenterViewSet)
 router.register(r'condom/purposes', PurposeViewSet)
 router.register(r'condom/distributions', CondomDistributionViewSet)
+router.register(r'condom/pivot', CondomDistributionPivotViewSet, 'condom-pivot')
 
 
 urlpatterns = [
