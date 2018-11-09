@@ -31,6 +31,7 @@ class BaseAdmin:
 class ChoiceAdmin(BaseAdmin, ImportExportModelAdmin):
     list_display = ['id', 'name', 'code']
     list_display_links = ['id', 'name']
+    ordering = ['id']
 
 
 @admin.register(Gender)
