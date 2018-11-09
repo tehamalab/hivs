@@ -51,6 +51,7 @@ class CondomDistributionViewSet(viewsets.ModelViewSet):
     """
     queryset = CondomDistribution.objects.prefetch_related('education_topics')
     serializer_class = CondomDistributionSerializer
+    renderer_classes = tuple(api_settings.DEFAULT_RENDERER_CLASSES) + (CSVStreamingRenderer, )
     ordering = ['-date']
     filterset_fields = {
         'date': ['exact', 'lt', 'lte', 'gt', 'gte', 'year',
@@ -146,13 +147,25 @@ class CondomDistributionViewSet(viewsets.ModelViewSet):
     def count(self, request, *args, **kwargs):
         """Count of condom distributions per group."""
         params = self.parse_count_request(request)
-        return Response(self.get_count(params['by']))
+        return Response(list(self.get_count(params['by'])))
 
     @action(detail=False, methods=['get'])
     def sum(self, request, *args, **kwargs):
         """Sum of condoms distributed per group."""
         params = self.parse_sum_request(request)
-        return Response(self.get_sum(params['by']))
+        return Response(list(self.get_sum(params['by'])))
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        """Setup filename for CSV response."""
+        response = super(CondomDistributionViewSet, self).finalize_response(
+            request, response, *args, **kwargs)
+
+        if response.accepted_renderer.format == 'csv':
+            filename = request.query_params.get('filename') \
+                or '%s-%s.csv' % (slugify(self.get_view_name()), timezone.now().isoformat())
+            response['content-disposition'] = 'attachment; filename=%s' % filename
+
+        return response
 
 
 class CondomDistributionPivotViewSet(CondomDistributionViewSet):
@@ -323,18 +336,6 @@ class CondomDistributionPivotViewSet(CondomDistributionViewSet):
                 df.columns = df.columns.str.replace(old, new)
 
         return Response(df.to_dict('records'))
-
-    def finalize_response(self, request, response, *args, **kwargs):
-        """Setup filename for CSV response."""
-        response = super(CondomDistributionPivotViewSet, self).finalize_response(
-            request, response, *args, **kwargs)
-
-        if response.accepted_renderer.format == 'csv':
-            filename = request.query_params.get('filename') \
-                or '%s-%s.csv' % (slugify(self.get_view_name()), timezone.now().isoformat())
-            response['content-disposition'] = 'attachment; filename=%s' % filename
-
-        return response
 
     @action(detail=False, methods=['get'])
     def count(self, request, *args, **kwargs):

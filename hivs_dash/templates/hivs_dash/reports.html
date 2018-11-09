@@ -59,7 +59,46 @@
                         </a>
                     </div>
                 </div>
-                
+            </div>
+
+
+            <div class="jumbotron pb-1">
+                <h2 class="border-bottom">Condoms Distribution</h2>
+                <div>
+                    <div class="card-body">
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Report type</span>
+                            </div>
+    
+                            <select class="form-control" v-model="condom.reportType" id="condom-report-type">
+                                <option v-for="option, key in condom.reports" v-bind:value="key">
+                                    {{ option.label }}
+                                </option>
+                            </select>
+                            <div class="datepicker-trigger">
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="trigger-range-condom"
+                                    :value=" condom.dateRange.start + ' to ' + condom.dateRange.end">
+                                <airbnb-style-datepicker
+                                    :trigger-element-id="'trigger-range-condom'"
+                                    :date-one="condom.dateRange.start"
+                                    :date-two="condom.dateRange.end"
+                                    v-on:date-one-selected="function(val) { condom.dateRange.start = val }"
+                                    v-on:date-two-selected="function(val) { condom.dateRange.end = val }"
+                                ></airbnb-style-datepicker>
+                            </div>
+                        </div>
+
+                        <a :href="condom.link" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-download"></i>
+                            Download report
+                        </a>
+                    </div>
+                </div>
             </div>
 
         </div>

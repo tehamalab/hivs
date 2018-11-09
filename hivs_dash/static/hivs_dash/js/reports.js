@@ -19,7 +19,7 @@ var app = new Vue({
             dateRange: {start: '', end: ''},
             reports: {
                 referral: {
-                    label: 'referrals',
+                    label: 'area referrals',
                     link: '',
                     uri: apiRoot + 'prevention/pivot/count',
                     params: {
@@ -36,7 +36,7 @@ var app = new Vue({
                     }
                 },
                 gender: {
-                    label: 'by gender',
+                    label: 'area and gender',
                     link: '',
                     uri: apiRoot + 'prevention/pivot/count',
                     params: {
@@ -52,7 +52,7 @@ var app = new Vue({
                     }
                 },
                 age: {
-                    label: 'by age',
+                    label: 'area and age',
                     link: '',
                     uri: apiRoot + 'prevention/pivot/count',
                     params: {
@@ -68,7 +68,7 @@ var app = new Vue({
                     }
                 },
                 ageRange0151824100: {
-                    label: 'by age range 15-17, 18-24',
+                    label: 'area and age range 15-17, 18-24',
                     link: '',
                     uri: apiRoot + 'prevention/pivot/count',
                     params: {
@@ -86,7 +86,7 @@ var app = new Vue({
                     }
                 },
                 ageRange0152024100: {
-                    label: 'by age range 15-19, 20-24',
+                    label: 'area and age range 15-19, 20-24',
                     link: '',
                     uri: apiRoot + 'prevention/pivot/count',
                     params: {
@@ -104,7 +104,7 @@ var app = new Vue({
                     }
                 },
                 genderAgeRange0151824100: {
-                    label: 'by gender and age range 15-17, 18-24',
+                    label: 'area and gender and age range 15-17, 18-24',
                     link: '',
                     uri: apiRoot + 'prevention/pivot/count',
                     params: {
@@ -122,7 +122,7 @@ var app = new Vue({
                     }
                 },
                 genderAgeRange0152024100: {
-                    label: 'by gender and age range 15-19, 20-24',
+                    label: 'area and gender and age range 15-19, 20-24',
                     link: '',
                     uri: apiRoot + 'prevention/pivot/count',
                     params: {
@@ -143,6 +143,116 @@ var app = new Vue({
             
         },
 
+        condom: {
+            link: '',
+            reportType: 'centers',
+            dateRange: {start: '', end: ''},
+            reports: {
+                centers: {
+                    label: 'condom distribution per center',
+                    link: '',
+                    uri: apiRoot + 'condom/distributions/sum',
+                    params: {
+                        by: ['center__name'],
+                        format: 'csv',
+                        filename: 'condom_distributions_per_center.csv'
+                    }
+                },
+                gender: {
+                    label: 'condom distribution per client gender',
+                    link: '',
+                    uri: apiRoot + 'condom/distributions/sum',
+                    params: {
+                        by: ['gender__name'],
+                        format: 'csv',
+                        filename: 'condom_distributions_per_gender.csv'
+                    }
+                },
+                age: {
+                    label: 'condom distribution per age',
+                    link: '',
+                    uri: apiRoot + 'condom/distributions/sum',
+                    params: {
+                        by: ['age'],
+                        format: 'csv',
+                        filename: 'condom_distributions_per_age.csv'
+                    }
+                },
+                date: {
+                    label: 'condom distribution per date',
+                    link: '',
+                    uri: apiRoot + 'condom/distributions/sum',
+                    params: {
+                        by: ['date'],
+                        format: 'csv',
+                        filename: 'condom_distributions_per_date.csv'
+                    }
+                },
+                attendanceType: {
+                    label: 'condom Ddistribution per attendance type',
+                    link: '',
+                    uri: apiRoot + 'condom/distributions/sum',
+                    params: {
+                        by: ['attendance_type__name'],
+                        format: 'csv',
+                        filename: 'condom_distributions_per_attendance_type.csv'
+                    }
+                },
+                purpose: {
+                    label: 'condom distribution per purpose',
+                    link: '',
+                    uri: apiRoot + 'condom/distributions/sum',
+                    params: {
+                        by: ['purpose__name'],
+                        format: 'csv',
+                        filename: 'condom_distributions_per_purpose.csv'
+                    }
+                },
+                centersGender: {
+                    label: 'condom distribution per center and gender',
+                    link: '',
+                    uri: apiRoot + 'condom/pivot/sum',
+                    params: {
+                        by: ['center__name', 'gender__name'],
+                        rows: 'center__name',
+                        columns: ['gender__name'],
+                        values: ['condoms_count'],
+                        format: 'csv',
+                        totals: 'total',
+                        pivot_type: 'gender',
+                        filename: 'condom_distributions_per_center_and_gender.csv'
+                    }
+                },
+                centersAttendance: {
+                    label: 'condom distribution per center and attendance type',
+                    link: '',
+                    uri: apiRoot + 'condom/pivot/sum',
+                    params: {
+                        by: ['center__name', 'attendance_type__name'],
+                        rows: 'center__name',
+                        columns: ['attendance_type__name'],
+                        values: ['condoms_count'],
+                        format: 'csv',
+                        totals: 'total',
+                        filename: 'condom_distributions_per_center_and_attendance_type.csv'
+                    }
+                },
+                centersPurpose: {
+                    label: 'condom distribution per center and purpose',
+                    link: '',
+                    uri: apiRoot + 'condom/pivot/sum',
+                    params: {
+                        by: ['center__name', 'purpose__name'],
+                        rows: 'center__name',
+                        columns: ['purpose__name'],
+                        values: ['condoms_count'],
+                        format: 'csv',
+                        totals: 'total',
+                        filename: 'condom_distributions_per_center_and_purpose.csv'
+                    }
+                },
+            },
+        },
     },
 
     methods: {
@@ -192,13 +302,37 @@ var app = new Vue({
             ].join('-')) + '.csv'
 
             this.prevention.link = uri + '?' + Qs.stringify(params, { indices: false })
-        }
+        },
+
+        /** Update condom distribution report link. */
+        updateCondomReportLink() {
+            var uri = this.condom.reports[this.condom.reportType].uri
+            var params = JSON.parse(JSON.stringify(this.condom.reports[this.condom.reportType].params));
+
+            params.date__gte = this.condom.dateRange.start
+            params.date__lte = this.condom.dateRange.end
+
+            // filename = service name report_type date_lte date_gte
+            params.filename = slugify([
+                this.condom.reports[this.condom.reportType].label,
+                params.date__lte,
+                'to',
+                params.date__gte
+            ].join('-')) + '.csv'
+
+            this.condom.link = uri + '?' + Qs.stringify(params, { indices: false })
+        },
     },
 
     mounted () {
         var date = new Date();
-        this.prevention.dateRange.start = new Date(date.getFullYear(), date.getMonth(), 1);
-        this.prevention.dateRange.end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        var monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
+        var monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+        this.prevention.dateRange.start = monthStart;
+        this.prevention.dateRange.end = monthEnd;
+        this.condom.dateRange.start = monthStart;
+        this.condom.dateRange.end = monthEnd;
 
         this.getServices();
         this.baywatch([
@@ -207,7 +341,12 @@ var app = new Vue({
                 'prevention.dateRange.start',
                 'prevention.dateRange.end',
             ], this.updatePreventionReportLink.bind(this));
-            
+
+        this.baywatch([
+                'condom.reportType',
+                'condom.dateRange.start',
+                'condom.dateRange.end',
+            ], this.updateCondomReportLink.bind(this));
     }
 
 })
