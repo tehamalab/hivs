@@ -28,51 +28,56 @@ class BaseAdmin:
     }
 
 
+class ChoiceAdmin(BaseAdmin, ImportExportModelAdmin):
+    list_display = ['id', 'name', 'code']
+    list_display_links = ['id', 'name']
+
+
 @admin.register(Gender)
-class GenderAdmin(BaseAdmin, ImportExportModelAdmin):
+class GenderAdmin(ChoiceAdmin):
     resource_class = GenderResource
 
 
 @admin.register(MartialStatus)
-class MartialStatusAdmin(BaseAdmin, ImportExportModelAdmin):
+class MartialStatusAdmin(ChoiceAdmin):
     resource_class = MartialStatusResource
 
 
 @admin.register(EducationLevel)
-class EducationLevelAdmin(BaseAdmin, ImportExportModelAdmin):
+class EducationLevelAdmin(ChoiceAdmin):
     resource_class = EducationLevelResource
 
 
 @admin.register(Occupation)
-class OccupationAdmin(BaseAdmin, ImportExportModelAdmin):
+class OccupationAdmin(ChoiceAdmin):
     resource_class = OccupationResource
 
 
 @admin.register(PregnancyStatus)
-class PregnancyStatusAdmin(BaseAdmin, ImportExportModelAdmin):
+class PregnancyStatusAdmin(ChoiceAdmin):
     resource_class = PregnancyStatusResource
 
 
 @admin.register(AttendanceType)
-class AttendanceTypeAdmin(BaseAdmin, ImportExportModelAdmin):
+class AttendanceTypeAdmin(ChoiceAdmin):
     resource_class = AttendanceTypeResource
 
 
 @admin.register(HIVStatus)
-class HIVStatusAdmin(BaseAdmin, ImportExportModelAdmin):
+class HIVStatusAdmin(ChoiceAdmin):
     resource_class = HIVStatusResource
 
 
 @admin.register(TBStatus)
-class TBStatusAdmin(BaseAdmin, ImportExportModelAdmin):
+class TBStatusAdmin(ChoiceAdmin):
     resource_class = TBStatusResource
 
 
 @admin.register(ResultSharingChoice)
-class ResultSharingChoiceAdmin(BaseAdmin, ImportExportModelAdmin):
+class ResultSharingChoiceAdmin(ChoiceAdmin):
     resource_class = ResultSharingChoiceResource
 
 
 @admin.register(Topic)
-class TopicAdmin(BaseAdmin, ImportExportModelAdmin):
+class TopicAdmin(ChoiceAdmin):
     resource_class = TopicResource
