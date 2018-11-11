@@ -11,7 +11,8 @@ class AbstractRegister(models.Model):
     client_no = models.CharField(_('client number'), max_length=255)
     client_spouce_no = models.CharField(
         _('client spouce number'),
-        max_length=255
+        max_length=255,
+        blank=True,
     )
     attendance_type = models.ForeignKey(
         'hivs_utils.AttendanceType',
@@ -43,13 +44,6 @@ class AbstractRegister(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    occupation = models.ForeignKey(
-        'hivs_utils.Occupation',
-        related_name='htc_registers',
-        verbose_name='occupation',
-        on_delete=models.SET_NULL,
-        null=True
-    )
     pregnancy_status = models.ForeignKey(
         'hivs_utils.PregnancyStatus',
         related_name='htc_registers',
@@ -60,11 +54,18 @@ class AbstractRegister(models.Model):
     referrer_type = models.ForeignKey(
         'hivs_htc.ReferralCenterType',
         related_name='htc_referrer_registers',
-        verbose_name='referrer',
+        verbose_name=_('referred from'),
+        help_text=_('Where the client is coming from'),
         on_delete=models.SET_NULL,
         null=True
     )
-    councelling_type = models.CharField(_('councelling type'), max_length=255)
+    councelling_type = models.ForeignKey(
+        'hivs_utils.CouncellingType',
+        related_name='htc_registers',
+        verbose_name='councelling type',
+        on_delete=models.SET_NULL,
+        null=True
+    )
     agreed_to_test = models.BooleanField(_('agreed to test'), default=False)
     councelled_after_test = models.BooleanField(
         _('councelled after test'),
@@ -82,13 +83,14 @@ class AbstractRegister(models.Model):
         related_name='htc_register_results',
         verbose_name='result sharing',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
-    tb_tested = models.BooleanField(_('tested for TB'), default=False)
-    tb_test_result = models.ForeignKey(
+    tb_screened = models.BooleanField(_('screened for TB'), default=False)
+    tb_screening_result = models.ForeignKey(
         'hivs_utils.TBStatus',
-        related_name='htc_register_results',
-        verbose_name='TB test result',
+        related_name='htc_register_screening',
+        verbose_name='TB screening result',
         on_delete=models.SET_NULL,
         null=True
     )
@@ -105,8 +107,8 @@ class AbstractRegister(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = 'Register'
-        verbose_name_plural = 'Register'
+        verbose_name = _('HTC Register')
+        verbose_name_plural = _('HTC Registers')
 
     def __str__(self):
         return self.client_no
@@ -126,8 +128,8 @@ class AbstractReferralCenterType(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = 'Referral Center Type'
-        verbose_name_plural = 'Referral Center Types'
+        verbose_name = _('Referral Type')
+        verbose_name_plural = _('Referral Types')
 
     def __str__(self):
         return self.name
@@ -178,8 +180,8 @@ class AbstractReferralCenter(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = 'Referral Center'
-        verbose_name_plural = 'Referral Centers'
+        verbose_name = _('Referral Center')
+        verbose_name_plural = _('Referral Centers')
 
     def __str__(self):
         return self.name
@@ -189,7 +191,7 @@ class AbstractReferral(models.Model):
     register = models.ForeignKey(
         'hivs_htc.Register',
         related_name='referrals',
-        verbose_name='register',
+        verbose_name=_('Client registered as'),
         on_delete=models.SET_NULL,
         null=True
     )
@@ -197,7 +199,7 @@ class AbstractReferral(models.Model):
     referral_center = models.ForeignKey(
         'hivs_htc.ReferralCenter',
         related_name='htc_referrals',
-        verbose_name='referred to',
+        verbose_name=_('referred to'),
         on_delete=models.SET_NULL,
         null=True
     )
@@ -211,7 +213,7 @@ class AbstractReferral(models.Model):
     referrer_center = models.ForeignKey(
         'hivs_htc.ReferralCenter',
         related_name='htc_referrers',
-        verbose_name='referred from',
+        verbose_name=_('referred from'),
         help_text=_('center that issues the referral'),
         on_delete=models.SET_NULL,
         null=True,
@@ -239,8 +241,8 @@ class AbstractReferral(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = 'Referral'
-        verbose_name_plural = 'Referrals'
+        verbose_name = _('Referral')
+        verbose_name_plural = _('Referrals')
 
     def __str__(self):
         return self.client_no

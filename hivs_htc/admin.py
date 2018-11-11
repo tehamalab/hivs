@@ -39,8 +39,7 @@ class ReferralAdmin(BaseAdmin, ImportExportModelAdmin):
     list_display = ['id', 'date', 'register']
     list_display_links = ['id', 'date', 'register']
     list_select_related = ['register']
-    list_filter = ['date', 'referral_center__center_type',
-                   'referrer_center__center_type']
+    list_filter = ['date', 'referrer_center__center_type']
     search_fields = ['id', 'register__client_no']
 
 
@@ -55,8 +54,11 @@ class RegisterAdmin(BaseAdmin, ImportExportModelAdmin):
     inlines = [ReferralInline]
     ordering = ['-date']
     readonly_fields = ['id', 'timestamp', 'last_modified']
-    list_display = ['id', 'date', 'client_no']
+    list_display = ['id', 'date', 'client_no', 'gender', 'martial_status',
+                    'agreed_to_test', 'tb_screened']
     list_display_links = ['id', 'date', 'client_no']
-    list_filter = ['date', 'gender', 'attendance_type', 'martial_status',
-                   'pregnancy_status', 'agreed_to_test', 'tb_tested']
+    list_select_related = ['gender', 'martial_status']
+    list_filter = ['date', 'gender', 'attendance_type', 'councelling_type',
+                   'martial_status', 'pregnancy_status', 'agreed_to_test',
+                   'hiv_test_result', 'tb_screened', 'tb_screening_result']
     search_fields = ['id', 'client_no', 'area']
