@@ -59,16 +59,16 @@ class AbstractRegister(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    councelling_type = models.ForeignKey(
-        'hivs_utils.CouncellingType',
+    counselling_type = models.ForeignKey(
+        'hivs_utils.CounsellingType',
         related_name='htc_registers',
-        verbose_name='councelling type',
+        verbose_name='counselling type',
         on_delete=models.SET_NULL,
         null=True
     )
     agreed_to_test = models.BooleanField(_('agreed to test'), default=False)
-    councelled_after_test = models.BooleanField(
-        _('councelled after test'),
+    counselled_after_test = models.BooleanField(
+        _('counselled after test'),
         default=False
     )
     hiv_test_result = models.ForeignKey(
@@ -92,7 +92,8 @@ class AbstractRegister(models.Model):
         related_name='htc_register_screening',
         verbose_name='TB screening result',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     received_condoms = models.BooleanField(_('received condom(s)'), default=False)
     remarks = models.TextField(_('remarks'), blank=True)

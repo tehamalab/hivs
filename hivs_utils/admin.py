@@ -10,7 +10,7 @@ from .import_export import (
     OccupationResource,
     PregnancyStatusResource,
     AttendanceTypeResource,
-    CouncellingTypeResource,
+    CounsellingTypeResource,
     HIVStatusResource,
     TBStatusResource,
     ResultSharingChoiceResource,
@@ -24,7 +24,7 @@ EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
 AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
-CouncellingType = apps.get_model('hivs_utils', 'CouncellingType')
+CounsellingType = apps.get_model('hivs_utils', 'CounsellingType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
 TBStatus = apps.get_model('hivs_utils', 'TBStatus')
 ResultSharingChoice = apps.get_model('hivs_utils', 'ResultSharingChoice')
@@ -73,9 +73,9 @@ class AttendanceTypeAdmin(ChoiceAdmin):
     resource_class = AttendanceTypeResource
 
 
-@admin.register(CouncellingType)
-class CouncellingTypeAdmin(ChoiceAdmin):
-    resource_class = CouncellingTypeResource
+@admin.register(CounsellingType)
+class CounsellingTypeAdmin(ChoiceAdmin):
+    resource_class = CounsellingTypeResource
 
 
 @admin.register(HIVStatus)

@@ -58,7 +58,7 @@ class RegisterAdmin(BaseAdmin, ImportExportModelAdmin):
                     'agreed_to_test', 'tb_screened']
     list_display_links = ['id', 'date', 'client_no']
     list_select_related = ['gender', 'martial_status']
-    list_filter = ['date', 'gender', 'attendance_type', 'councelling_type',
+    list_filter = ['date', 'gender', 'attendance_type', 'counselling_type',
                    'martial_status', 'pregnancy_status', 'agreed_to_test',
                    'hiv_test_result', 'tb_screened', 'tb_screening_result']
     search_fields = ['id', 'client_no', 'area']
