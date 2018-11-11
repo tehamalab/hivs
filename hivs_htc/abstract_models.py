@@ -129,8 +129,8 @@ class AbstractReferralCenterType(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = _('Referral Type')
-        verbose_name_plural = _('Referral Types')
+        verbose_name = _('Referral Center Type')
+        verbose_name_plural = _('Referral Center Types')
 
     def __str__(self):
         return self.name
