@@ -44,6 +44,13 @@ class AttendanceType(AbstractChoice):
         verbose_name_plural = _('Attendance types')
 
 
+class CouncellingType(AbstractChoice):
+
+    class Meta:
+        verbose_name = _('Councelling type')
+        verbose_name_plural = _('Councelling types')
+
+
 class HIVStatus(AbstractChoice):
 
     class Meta:

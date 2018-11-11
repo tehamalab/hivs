@@ -8,6 +8,7 @@ EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
 AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
+CouncellingType = apps.get_model('hivs_utils', 'CouncellingType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
 TBStatus = apps.get_model('hivs_utils', 'TBStatus')
 ResultSharingChoice = apps.get_model('hivs_utils', 'ResultSharingChoice')
@@ -48,6 +49,12 @@ class AttendanceTypeResource(resources.ModelResource):
 
     class Meta:
         model = AttendanceType
+
+
+class CouncellingTypeResource(resources.ModelResource):
+
+    class Meta:
+        model = CouncellingType
 
 
 class HIVStatusResource(resources.ModelResource):

@@ -3,11 +3,19 @@ from django.contrib import admin
 from django.contrib.postgres.fields import JSONField
 from django_postgres_utils.widgets import AdminHStoreWidget
 from import_export.admin import ImportExportModelAdmin
-from .import_export import (GenderResource, MartialStatusResource,
-                            EducationLevelResource, OccupationResource,
-                            PregnancyStatusResource, AttendanceTypeResource,
-                            HIVStatusResource, TBStatusResource,
-                            ResultSharingChoiceResource, TopicResource)
+from .import_export import (
+    GenderResource,
+    MartialStatusResource,
+    EducationLevelResource,
+    OccupationResource,
+    PregnancyStatusResource,
+    AttendanceTypeResource,
+    CouncellingTypeResource,
+    HIVStatusResource,
+    TBStatusResource,
+    ResultSharingChoiceResource,
+    TopicResource
+)
 
 
 Gender = apps.get_model('hivs_utils', 'Gender')
@@ -16,6 +24,7 @@ EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
 AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
+CouncellingType = apps.get_model('hivs_utils', 'CouncellingType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
 TBStatus = apps.get_model('hivs_utils', 'TBStatus')
 ResultSharingChoice = apps.get_model('hivs_utils', 'ResultSharingChoice')
@@ -62,6 +71,11 @@ class PregnancyStatusAdmin(ChoiceAdmin):
 @admin.register(AttendanceType)
 class AttendanceTypeAdmin(ChoiceAdmin):
     resource_class = AttendanceTypeResource
+
+
+@admin.register(CouncellingType)
+class CouncellingTypeAdmin(ChoiceAdmin):
+    resource_class = CouncellingTypeResource
 
 
 @admin.register(HIVStatus)
