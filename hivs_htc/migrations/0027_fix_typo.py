@@ -8,6 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('hivs_htc', '0026_rename_counselling_type_to_counselling_type_on_register'),
+        ('hivs_utils', '0007_rename_model_councellingtype_to_counsellingtype'),
     ]
 
     operations = [
