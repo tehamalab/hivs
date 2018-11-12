@@ -231,6 +231,15 @@ REST_FRAMEWORK = {
     ]
 }
 
+# Session
+
+SESSION_COOKIE_AGE = int(os.environ.get('SESSION_COOKIE_AGE', '3600'))
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = sbool(os.environ.get('SESSION_EXPIRE_AT_BROWSER_CLOSE', 'true'))
+
+if os.environ.get('SESSION_COOKIE_SECURE', None):
+    SESSION_COOKIE_SECURE = sbool(os.environ.get('SESSION_COOKIE_SECURE', 'false'))
+
 # SSL
 
 if os.environ.get('SECURE_PROXY_SSL_HEADER', None):
@@ -238,9 +247,6 @@ if os.environ.get('SECURE_PROXY_SSL_HEADER', None):
 
 if os.environ.get('SECURE_SSL_REDIRECT', None):
     SECURE_SSL_REDIRECT = sbool(os.environ.get('SECURE_SSL_REDIRECT', 'false'))
-
-if os.environ.get('SESSION_COOKIE_SECURE', None):
-    SESSION_COOKIE_SECURE = sbool(os.environ.get('SESSION_COOKIE_SECURE', 'false'))
 
 if os.environ.get('CSRF_COOKIE_SECURE', None):
     CSRF_COOKIE_SECURE = sbool(os.environ.get('CSRF_COOKIE_SECURE', 'false'))
