@@ -209,7 +209,7 @@ SITE_ID = int(os.environ.get('SITE_ID', 1))
 
 SITE_NAME = os.environ.get('SITE_NAME', 'Hivs')
 
-SITE_TAGLINE = os.environ.get('SITE_TAGLINE', 'Data Management')
+SITE_TAGLINE = os.environ.get('SITE_TAGLINE', 'HIV Interventions Database')
 
 ADMIN_SITE_NAME = os.environ.get('ADMIN_SITE_HEADER', SITE_NAME)
 

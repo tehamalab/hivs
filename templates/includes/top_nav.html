@@ -6,7 +6,13 @@
         <i class="fas fa-bars"></i>
     </button>
 
-    <a class="navbar-brand mr-1" href="{% url 'index' %}">{{ SITE_NAME }}</a>
+    <a class="navbar-brand mr-1" href="{% url 'index' %}">
+        {{ SITE_NAME }}
+    </a>
+
+    <div class="navbar-text ml-4">
+        <span class="small badge badge-warning ">{{ SITE_TAGLINE }}</span>
+    </div>
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -22,8 +28,6 @@
                     <i class="fas fa-sign-out-alt fa-fw"></i>
                     {% trans 'Logout' %}
                 </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'account_reset_password' %}">{% trans 'Change password' %}</a>
             </div>
 
         </li>
