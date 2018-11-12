@@ -9,6 +9,7 @@ django-import-export
 django-mptt
 django-mptt-admin
 django-allauth
+phonenumbers
 django-phonenumber-field
 django-postgres-utils
 django-crispy-forms
