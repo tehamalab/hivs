@@ -109,7 +109,7 @@ class AbstractRegister(models.Model):
     class Meta:
         abstract = True
         verbose_name = _('HTC Register')
-        verbose_name_plural = _('HTC Registers')
+        verbose_name_plural = _('HTC Register')
 
     def __str__(self):
         return self.client_no
