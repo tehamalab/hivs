@@ -8,6 +8,7 @@ EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
 AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
+CounsellingType = apps.get_model('hivs_utils', 'CounsellingType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
 TBStatus = apps.get_model('hivs_utils', 'TBStatus')
 ResultSharingChoice = apps.get_model('hivs_utils', 'ResultSharingChoice')
@@ -53,6 +54,13 @@ class AttendanceTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AttendanceType
+        fields = '__all__'
+
+
+class CounsellingTypeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CounsellingType
         fields = '__all__'
 
 

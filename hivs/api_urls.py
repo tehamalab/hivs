@@ -16,6 +16,7 @@ from hivs_utils.api.views import (
     OccupationViewSet,
     PregnancyStatusViewSet,
     AttendanceTypeViewSet,
+    CounsellingTypeViewSet,
     HIVStatusViewSet,
     TBStatusViewSet,
     ResultSharingChoiceViewSet,
@@ -30,6 +31,7 @@ router.register(r'common/education-levels', EducationLevelViewSet)
 router.register(r'common/occupations', OccupationViewSet)
 router.register(r'common/pregnancy-status', PregnancyStatusViewSet)
 router.register(r'common/attenndance-types', AttendanceTypeViewSet)
+router.register(r'common/counselling-types', CounsellingTypeViewSet)
 router.register(r'common/hiv-status', HIVStatusViewSet)
 router.register(r'common/tb-status', TBStatusViewSet)
 router.register(r'common/results-sharing-choices', ResultSharingChoiceViewSet)

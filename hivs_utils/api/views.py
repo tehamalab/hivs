@@ -7,6 +7,7 @@ from .serializers import (
     OccupationSerializer,
     PregnancyStatusSerializer,
     AttendanceTypeSerializer,
+    CounsellingTypeSerializer,
     HIVStatusSerializer,
     TBStatusSerializer,
     ResultSharingChoiceSerializer,
@@ -20,6 +21,7 @@ EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
 AttendanceType = apps.get_model('hivs_utils', 'AttendanceType')
+CounsellingType = apps.get_model('hivs_utils', 'CounsellingType')
 HIVStatus = apps.get_model('hivs_utils', 'HIVStatus')
 TBStatus = apps.get_model('hivs_utils', 'TBStatus')
 ResultSharingChoice = apps.get_model('hivs_utils', 'ResultSharingChoice')
@@ -62,6 +64,11 @@ class PregnancyStatusViewSet(BaseViewSet):
 class AttendanceTypeViewSet(BaseViewSet):
     queryset = AttendanceType.objects.all()
     serializer_class = AttendanceTypeSerializer
+
+
+class CounsellingTypeViewSet(BaseViewSet):
+    queryset = CounsellingType.objects.all()
+    serializer_class = CounsellingTypeSerializer
 
 
 class HIVStatusViewSet(BaseViewSet):
