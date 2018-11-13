@@ -19,7 +19,10 @@ class PPAdmin(BaseAdmin, ImportExportModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(PPAdmin):
     resource_class = CategoryResource
+    list_display = ['id', 'name']
+    list_display_links = ['id', 'name']
     search_fields = ['id', 'name']
+    ordering = ['id']
 
 
 @admin.register(Service)
@@ -30,6 +33,7 @@ class ServiceAdmin(PPAdmin):
     list_select_related = ['category']
     list_filter = ['category', 'is_confidential']
     search_fields = ['id', 'name']
+    ordering = ['id']
 
 
 @admin.register(Delivery)
@@ -44,3 +48,4 @@ class DeliveryAdmin(PPAdmin):
     filter_horizontal = ['services']
     raw_id_fields = ['client', 'provider', 'reviewer']
     search_fields = ['id', 'provider__username', 'services__name']
+    ordering = ['-date']
