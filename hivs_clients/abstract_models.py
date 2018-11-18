@@ -43,14 +43,16 @@ class AbstractProfile(models.Model):
         related_name='clients_profiles',
         verbose_name='education level',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     occupation = models.ForeignKey(
         'hivs_utils.Occupation',
         related_name='clients_profiles',
         verbose_name='occupation',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     area = models.ForeignKey(
         'hivs_administrative.Area',
