@@ -70,12 +70,6 @@ class AbstractProfile(models.Model):
         blank=True,
         null=True
     )
-    geolocation = models.PointField(
-        _('geolocation'),
-        blank=True,
-        null=True,
-        geography=True
-    )
     timestamp = models.DateTimeField('Created at', auto_now_add=True)
     last_modified = models.DateTimeField(
         _('Last modified'),
