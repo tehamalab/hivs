@@ -23,3 +23,4 @@ markdown
 django-filter
 
 pandas
+openpyxl>=2.4,<2.5
