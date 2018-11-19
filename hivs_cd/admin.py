@@ -40,7 +40,7 @@ class CondomDistributionAdmin(BaseAdmin, ImportExportModelAdmin):
     list_select_related = ['center', 'purpose']
     list_filter = ['date', ('date', DateRangeFilter), 'gender', 'attendance_type',
                    'purpose', 'referral_made']
-    search_fields = ['id', 'center__name',
-                     'client_first_name', 'client_middle_name', 'client_last_name']
+    search_fields = ['id', 'center__name', 'center__center_no',
+                     'client__first_name', 'client__middle_name', 'client__last_name']
     filter_horizontal = ['education_topics']
     ordering = ['-date']
