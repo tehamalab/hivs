@@ -11,7 +11,7 @@ from hivs_cd.api.views import (
 )
 from hivs_utils.api.views import (
     GenderViewSet,
-    MartialStatusViewSet,
+    MaritalStatusViewSet,
     EducationLevelViewSet,
     OccupationViewSet,
     PregnancyStatusViewSet,
@@ -26,7 +26,7 @@ from hivs_utils.api.views import (
 
 router = routers.DefaultRouter()
 router.register(r'common/gender', GenderViewSet)
-router.register(r'common/martial-status', MartialStatusViewSet)
+router.register(r'common/marital-status', MaritalStatusViewSet)
 router.register(r'common/education-levels', EducationLevelViewSet)
 router.register(r'common/occupations', OccupationViewSet)
 router.register(r'common/pregnancy-status', PregnancyStatusViewSet)

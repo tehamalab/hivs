@@ -5,7 +5,7 @@ from django_postgres_utils.widgets import AdminHStoreWidget
 from import_export.admin import ImportExportModelAdmin
 from .import_export import (
     GenderResource,
-    MartialStatusResource,
+    MaritalStatusResource,
     EducationLevelResource,
     OccupationResource,
     PregnancyStatusResource,
@@ -19,7 +19,7 @@ from .import_export import (
 
 
 Gender = apps.get_model('hivs_utils', 'Gender')
-MartialStatus = apps.get_model('hivs_utils', 'MartialStatus')
+MaritalStatus = apps.get_model('hivs_utils', 'MaritalStatus')
 EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
@@ -48,9 +48,9 @@ class GenderAdmin(ChoiceAdmin):
     resource_class = GenderResource
 
 
-@admin.register(MartialStatus)
-class MartialStatusAdmin(ChoiceAdmin):
-    resource_class = MartialStatusResource
+@admin.register(MaritalStatus)
+class MaritalStatusAdmin(ChoiceAdmin):
+    resource_class = MaritalStatusResource
 
 
 @admin.register(EducationLevel)

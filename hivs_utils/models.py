@@ -9,11 +9,11 @@ class Gender(AbstractChoice):
         verbose_name_plural = _('Gender')
 
 
-class MartialStatus(AbstractChoice):
+class MaritalStatus(AbstractChoice):
 
     class Meta:
-        verbose_name = _('Martial status')
-        verbose_name_plural = _('Martial status')
+        verbose_name = _('Marital status')
+        verbose_name_plural = _('Marital status')
 
 
 class EducationLevel(AbstractChoice):

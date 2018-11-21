@@ -2,7 +2,7 @@ from django.apps import apps
 from rest_framework import viewsets
 from .serializers import (
     GenderSerializer,
-    MartialStatusSerializer,
+    MaritalStatusSerializer,
     EducationLevelSerializer,
     OccupationSerializer,
     PregnancyStatusSerializer,
@@ -16,7 +16,7 @@ from .serializers import (
 
 
 Gender = apps.get_model('hivs_utils', 'Gender')
-MartialStatus = apps.get_model('hivs_utils', 'MartialStatus')
+MaritalStatus = apps.get_model('hivs_utils', 'MaritalStatus')
 EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
@@ -41,9 +41,9 @@ class GenderViewSet(BaseViewSet):
     serializer_class = GenderSerializer
 
 
-class MartialStatusViewSet(BaseViewSet):
-    queryset = MartialStatus.objects.all()
-    serializer_class = MartialStatusSerializer
+class MaritalStatusViewSet(BaseViewSet):
+    queryset = MaritalStatus.objects.all()
+    serializer_class = MaritalStatusSerializer
 
 
 class EducationLevelViewSet(BaseViewSet):

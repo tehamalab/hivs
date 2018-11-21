@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 
 Gender = apps.get_model('hivs_utils', 'Gender')
-MartialStatus = apps.get_model('hivs_utils', 'MartialStatus')
+MaritalStatus = apps.get_model('hivs_utils', 'MaritalStatus')
 EducationLevel = apps.get_model('hivs_utils', 'EducationLevel')
 Occupation = apps.get_model('hivs_utils', 'Occupation')
 PregnancyStatus = apps.get_model('hivs_utils', 'PregnancyStatus')
@@ -22,10 +22,10 @@ class GenderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MartialStatusSerializer(serializers.ModelSerializer):
+class MaritalStatusSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = MartialStatus
+        model = MaritalStatus
         fields = '__all__'
 
 

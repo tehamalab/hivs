@@ -31,8 +31,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
         'occupation__name': ['exact', 'iexact'],
         'gender': ['exact'],
         'gender__name': ['exact', 'iexact'],
-        'martial_status': ['exact'],
-        'martial_status__name': ['exact', 'iexact'],
+        'marital_status': ['exact'],
+        'marital_status__name': ['exact', 'iexact'],
     }
 
     group_by_fields = [
@@ -45,8 +45,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
         'occupation',
         'gender',
         'gender__name',
-        'martial_status',
-        'martial_status__name',
+        'marital_status',
+        'marital_status__name',
     ]
 
     ordering_fields = [
@@ -59,8 +59,8 @@ class ProfileViewSet(viewsets.ModelViewSet):
         'occupation',
         'gender',
         'gender__name',
-        'martial_status',
-        'martial_status__name',
+        'marital_status',
+        'marital_status__name',
     ]
 
     @action(detail=False, methods=['get'])

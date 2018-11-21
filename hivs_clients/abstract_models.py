@@ -22,10 +22,10 @@ class AbstractProfile(models.Model):
         on_delete=models.SET_NULL,
         null=True
     )
-    martial_status = models.ForeignKey(
-        'hivs_utils.MartialStatus',
+    marital_status = models.ForeignKey(
+        'hivs_utils.MaritalStatus',
         related_name='clients_profiles',
-        verbose_name='martial status',
+        verbose_name='marital status',
         on_delete=models.SET_NULL,
         null=True
     )

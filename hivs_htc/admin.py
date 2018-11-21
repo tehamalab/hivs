@@ -54,11 +54,11 @@ class RegisterAdmin(BaseAdmin, ImportExportModelAdmin):
     inlines = [ReferralInline]
     ordering = ['-date']
     readonly_fields = ['id', 'timestamp', 'last_modified']
-    list_display = ['id', 'date', 'client_no', 'gender', 'martial_status',
+    list_display = ['id', 'date', 'client_no', 'gender', 'marital_status',
                     'agreed_to_test', 'tb_screened']
     list_display_links = ['id', 'date', 'client_no']
-    list_select_related = ['gender', 'martial_status']
+    list_select_related = ['gender', 'marital_status']
     list_filter = ['date', 'gender', 'attendance_type', 'counselling_type',
-                   'martial_status', 'pregnancy_status', 'agreed_to_test',
+                   'marital_status', 'pregnancy_status', 'agreed_to_test',
                    'hiv_test_result', 'tb_screened', 'tb_screening_result']
     search_fields = ['id', 'client_no', 'area']

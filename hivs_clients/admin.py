@@ -31,7 +31,7 @@ class ProfileAdmin(BaseAdmin, ImportExportModelAdmin):
     readonly_fields = ['id', 'timestamp', 'last_modified']
     list_display = ['id', 'first_name', 'last_name', 'registration_id']
     list_display_links = ['id', 'first_name', 'last_name']
-    list_filter = ['gender', 'martial_status', 'timestamp']
+    list_filter = ['gender', 'marital_status', 'timestamp']
     search_fields = ['id', 'first_name', 'last_name', 'registration_id',
                      'area__name', 'street__name']
     inlines = profile_inlines
