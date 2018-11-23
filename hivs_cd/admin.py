@@ -33,7 +33,7 @@ class PurposeAdmin(BaseAdmin, ImportExportModelAdmin):
 @admin.register(CondomDistribution)
 class CondomDistributionAdmin(BaseAdmin, ImportExportModelAdmin):
     resource_class = CondomDistributionResource
-    raw_id_fields = ['center', 'client']
+    raw_id_fields = ['client']
     list_display = ['id', 'date', 'center', 'condoms_male_count',
                     'condoms_female_count', 'referral_made', 'purpose']
     list_display_links = ['id', 'date', 'center']
