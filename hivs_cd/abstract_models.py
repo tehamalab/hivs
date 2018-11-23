@@ -111,13 +111,15 @@ class AbstractCondomDistribution(models.Model):
         _('No. of male condoms provided'),
         help_text=_('No. of male condoms delivered'),
         validators=[MinValueValidator(0)],
-        default=0
+        default=0,
+        blank=True
     )
     condoms_female_count = models.IntegerField(
         _('No. of female condoms provided'),
         help_text=_('No. of male condoms delivered'),
         validators=[MinValueValidator(0)],
-        default=0
+        default=0,
+        blank=True
     )
     purpose = models.ForeignKey(
         'hivs_cd.Purpose',
