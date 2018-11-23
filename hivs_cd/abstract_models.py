@@ -124,7 +124,8 @@ class AbstractCondomDistribution(models.Model):
         related_name='condom_distributions',
         verbose_name='purpose',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True,
     )
     education_delivered = models.BooleanField(
         _('Education was delivered'),
