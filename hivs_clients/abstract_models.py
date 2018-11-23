@@ -27,7 +27,8 @@ class AbstractProfile(models.Model):
         related_name='clients_profiles',
         verbose_name='marital status',
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
     birthdate = models.DateField(_('birthdate'), blank=True, null=True)
     phone = PhoneNumberField(_('phone number'), blank=True)
