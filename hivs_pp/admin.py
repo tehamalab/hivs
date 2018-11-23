@@ -43,7 +43,7 @@ class DeliveryAdmin(PPAdmin):
     list_display = ['id', 'date', 'gender', 'age', 'referral_made', 'referral_successful']
     list_display_links = ['id', 'date']
     list_select_related = ['gender']
-    list_filter = ['date', ('date', DateRangeFilter), 'services',
+    list_filter = ['date', ('date', DateRangeFilter), 'gender', 'services',
                    'referral_made', 'referral_successful', 'provider']
     filter_horizontal = ['services']
     raw_id_fields = ['client', 'provider', 'reviewer']
