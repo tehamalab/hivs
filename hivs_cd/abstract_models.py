@@ -136,7 +136,8 @@ class AbstractCondomDistribution(models.Model):
     education_topics = models.ManyToManyField(
         'hivs_utils.Topic',
         related_name='condom_distributions',
-        verbose_name=_('Education topics delivered')
+        verbose_name=_('Education topics delivered'),
+        blank=True
     )
     referral_made = models.BooleanField(_('referral was given'), default=False)
     referral_type = models.ForeignKey(
