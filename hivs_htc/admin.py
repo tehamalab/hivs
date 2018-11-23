@@ -1,6 +1,7 @@
 from django.apps import apps
 from django.contrib.gis import admin
 from import_export.admin import ImportExportModelAdmin
+from admin_numeric_filter.admin import NumericFilterModelAdmin, RangeNumericFilter
 from hivs_utils.admin import BaseAdmin
 from .import_export import (RegisterResource, ReferralCenterTypeResource,
                             ReferralCenterResource, ReferralResource)
@@ -49,7 +50,7 @@ class ReferralInline(admin.StackedInline):
 
 
 @admin.register(Register)
-class RegisterAdmin(BaseAdmin, ImportExportModelAdmin):
+class RegisterAdmin(BaseAdmin, NumericFilterModelAdmin, ImportExportModelAdmin):
     resource_class = RegisterResource
     inlines = [ReferralInline]
     ordering = ['-date']
@@ -58,7 +59,8 @@ class RegisterAdmin(BaseAdmin, ImportExportModelAdmin):
                     'agreed_to_test', 'tb_screened']
     list_display_links = ['id', 'date', 'client_no']
     list_select_related = ['gender', 'marital_status']
-    list_filter = ['date', 'gender', 'attendance_type', 'counselling_type',
+    list_filter = ['date', 'gender', ('age', RangeNumericFilter),
+                   'attendance_type', 'counselling_type',
                    'marital_status', 'pregnancy_status', 'agreed_to_test',
                    'hiv_test_result', 'tb_screened', 'tb_screening_result']
     search_fields = ['id', 'client_no', 'area']

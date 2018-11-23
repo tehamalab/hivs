@@ -2,6 +2,7 @@ from django.apps import apps
 from django.contrib.gis import admin
 from import_export.admin import ImportExportModelAdmin
 from rangefilter.filter import DateRangeFilter
+from admin_numeric_filter.admin import NumericFilterModelAdmin, RangeNumericFilter
 from hivs_utils.admin import BaseAdmin
 from .import_export import CenterResource, PurposeResource, CondomDistributionResource
 
@@ -31,14 +32,15 @@ class PurposeAdmin(BaseAdmin, ImportExportModelAdmin):
 
 
 @admin.register(CondomDistribution)
-class CondomDistributionAdmin(BaseAdmin, ImportExportModelAdmin):
+class CondomDistributionAdmin(BaseAdmin, NumericFilterModelAdmin, ImportExportModelAdmin):
     resource_class = CondomDistributionResource
     raw_id_fields = ['client']
     list_display = ['id', 'date', 'center', 'condoms_male_count',
                     'condoms_female_count', 'referral_made', 'purpose']
     list_display_links = ['id', 'date', 'center']
     list_select_related = ['center', 'purpose']
-    list_filter = ['date', ('date', DateRangeFilter), 'gender', 'attendance_type',
+    list_filter = ['date', ('date', DateRangeFilter), 'gender',
+                   'attendance_type', ('age', RangeNumericFilter),
                    'purpose', 'referral_made']
     search_fields = ['id', 'center__name', 'center__center_no',
                      'client__first_name', 'client__middle_name', 'client__last_name']

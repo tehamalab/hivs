@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_filters',
     'rangefilter',
+    'admin_numeric_filter',
     'hivs_utils',
     'hivs_users',
     'hivs_dash',
