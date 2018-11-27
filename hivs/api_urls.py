@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.urls import path, include
 from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
 from hivs_administrative.api.views import AreaTypeViewSet, AreaViewSet, StreetViewSet
 from hivs_clients.api.views import ProfileViewSet
 from hivs_pp.api.views import CategoryViewSet, ServiceViewSet, DeliveryViewSet, DeliveryPivotViewSet
@@ -52,5 +54,6 @@ router.register(r'condom/pivot', CondomDistributionPivotViewSet, 'condom-pivot')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('_auth/', include('rest_framework.urls'))
+    path('_auth/', include('rest_framework.urls')),
+    path('docs/', include_docs_urls(title='%s API Docs' % settings.SITE_NAME, public=False))
 ]

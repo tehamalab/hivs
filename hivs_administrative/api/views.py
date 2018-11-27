@@ -19,7 +19,7 @@ class AdmistrativePagination(PageNumberPagination):
 
 class AreaTypeViewSet(viewsets.ModelViewSet):
     """
-    Administrative Areas.
+    Administrative Areas Types.
     """
     queryset = AreaType.objects.all()
     serializer_class = AreaTypeSerializer

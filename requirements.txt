@@ -20,7 +20,9 @@ django-debug-toolbar
 djangorestframework
 djangorestframework-gis
 djangorestframework-csv
+coreapi
 markdown
+pygments
 django-filter
 
 pandas
